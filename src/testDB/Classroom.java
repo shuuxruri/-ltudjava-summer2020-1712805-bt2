@@ -9,7 +9,7 @@ import java.io.*;
 //package java.io.package.*;
 public class Classroom implements Serializable{
 //public static HashSet <SV> DSSV2 ;
-	String classId;
+	String Name;
 public   Set <SV>DSSV= new HashSet<SV>(); 
 private static final char  DEFAULT_QUOTE = '\"';
 private static final char DEFAULT_SEPERATOR = ',';
@@ -19,13 +19,13 @@ public Classroom()
 	
 	
 }
-public String getClassId()
+public String getName()
 {
-return classId;	
+return Name;	
 }
-public void setClassId(String Id)
+public void setName()
 {
-	classId = Id;
+	
 }
 /*public Set<SV> getDSSV()
 {
@@ -42,12 +42,12 @@ public void setDSSV(Set<SV>dssv)
 public Classroom(String name, Set<SV> dssv)
 
 {
-classId = name;
+Name = name;
 DSSV = dssv;
 }
 public Classroom(Classroom Class)
 {
-classId = Class.classId;
+Name = Class.Name;
 DSSV = Class.DSSV;
 }
 /*public static SV advancedConvert(String str)

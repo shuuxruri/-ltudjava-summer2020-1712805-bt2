@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 1, 2020 3:57:27 PM by Hibernate Tools 3.5.0.Final -->
-<hibernate-mapping default-lazy="false" package="testDB">
- <class name="testDB.SV" table="SV">
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 17, 2020 1:21:44 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="testDB.SV" table="SV">
   <id length="10" name="Mssv" type="java.lang.String">
    <column length="11" name="Mssv" not-null="true" unique="true"/>
    <generator class="assigned"/>
@@ -25,14 +25,14 @@
   </property>
   <property generated="never" index="Id" lazy="false" length="11"
    name="Id" not-null="true" type="java.lang.Integer" unique="true"/>
-  <set inverse = "false" name="classes" table="sv_classroom">
-   <key>
-<column length="10" name="Mssv" not-null="true"/>
-</key>
-<many-to-many entity-name="testDB.Classroom">
+        <set inverse = "false" name="classes" table="sv_classroom"  lazy="true" cascade="save-update" >
+            <key>
+                <column name="studentId" />
+            </key>
+            <many-to-many entity-name="testDB.Classroom">
 <column length="30"
-name="Name" not-null="true"/>
+name="classId" not-null="true"/>
 </many-to-many>
-  </set>
- </class>
+        </set>
+    </class>
 </hibernate-mapping>
