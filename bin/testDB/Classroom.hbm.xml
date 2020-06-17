@@ -1,20 +1,34 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<!-- Generated Jun 1, 2020 3:57:27 PM by Hibernate Tools 3.5.0.Final -->
-<hibernate-mapping default-access="field" package="testDB">
+<!-- Generated Jun 17, 2020 1:21:44 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping default-access="field" default-lazy="false" package="testDB">
  <class name="testDB.Classroom" table="CLASSROOM">
-  <id length="30" name="Name" type="java.lang.Long">
+  <id name="Name" type="java.lang.String">
    <column name="name"/>
    <generator class="assigned"/>
   </id>
-  <set name="DSSV" sort="unsorted" table="sv_classroom">
+  <set cascade="save-update" name="DSSV" sort="unsorted" table="sv_classroom">
    <key>
-    <column length="30" name="Name" not-null="true"/>
+    <column length="30" name="classId" not-null="true"/>
    </key>
    <many-to-many entity-name="testDB.SV" unique="false">
-    <column length="10" name="Mssv" not-null="true"/>
+    <column length="10" name="studentId" not-null="true"/>
    </many-to-many>
+  </set>
+  <set cascade="save-update" fetch="join" inverse="true" lazy="false"
+   name="ScheduleList" sort="unsorted" table="Schedule">
+   <key>
+    <column name="classId"/>
+   </key>
+   <one-to-many class="testDB.Schedule"/>
+  </set>
+   <set cascade="save-update" fetch="join" inverse="true" lazy="false"
+   name="GradeList" sort="unsorted" table="grade">
+   <key>
+    <column name="classId"/>
+   </key>
+   <one-to-many class="testDB.Schedule"/>
   </set>
  </class>
 </hibernate-mapping>

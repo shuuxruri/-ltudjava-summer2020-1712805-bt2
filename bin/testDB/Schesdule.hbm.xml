@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 17, 2020 1:21:44 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="testDB.Schedule" table="schedule">
+ <id name="Id" type="java.lang.Integer">
+   <column name="id"/>
+   <generator class="increment"/>
+  </id>
+  <property generated="never" lazy="false" name="room" type="java.lang.String">
+   <column name="room"/>
+  </property>
+       <many-to-one class="testDB.Subject" name="subjectId"
+fetch="select">
+<column name="subjectId" not-null="true"/>
+</many-to-one>
+  <many-to-one class="testDB.Classroom" name="classId"
+fetch="select">
+<column name="classId" not-null="true"/>
+</many-to-one>
+    </class>
+</hibernate-mapping>

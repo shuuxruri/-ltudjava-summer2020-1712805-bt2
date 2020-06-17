@@ -173,12 +173,85 @@ session.close();
 System.out.println("done");
 return true; }
 
+
+
+public static List<Schedule> getScheduleInfo() {
+	List<Schedule> Sc = null;
+	Session session = HibernateUtil.getSessionFactory()
+			.openSession();
+	
+			try {
+
+				
+				String hql=" from Schedule ";
+				
+				TypedQuery<Schedule> query = session.createQuery(hql);
+			Sc = query.getResultList();
+			} catch (HibernateException ex) {
+			System.err.println(ex);
+			}catch(NoResultException nores)
+			{
+				
+			}
+			finally {
+			session.close();
+			}
+	return Sc;
+}
+public static Subject getSubjectInfo(String subjectId) {
+	Subject Sj = null;
+	Session session = HibernateUtil.getSessionFactory()
+			.openSession();
+	
+			try {
+
+				String hql=" select sj ";
+				hql+= " from Subject sj left join fetch sj.schedule";
+				hql+= " where dm.subjectId=:subject";
+				TypedQuery<Subject> query = session.createQuery(hql);
+				query.setParameter("subject", subjectId);
+				Sj = query.getSingleResult();
+			} catch (HibernateException ex) {
+			System.err.println(ex);
+			}catch(NoResultException nores)
+			{
+				
+			}
+			finally {
+			session.close();
+			}
+	return Sj;
+}
+
+public static boolean addSubject(Subject sj) {
+Session session = HibernateUtil.getSessionFactory().openSession();
+if (getSubjectInfo(sj.getName())!=null) {
+return false; }
+Transaction transaction = null;
+try {
+transaction = session.beginTransaction();
+session.saveOrUpdate(sj);
+transaction.commit();
+} catch (HibernateException ex) {
+//Log the exception
+transaction.rollback();
+System.out.println("done");
+System.err.println(ex);
+} finally {
+session.close();
+}
+System.out.println("done");
+return true; }
+
+
+
+
 public static void main(String args[])
 {
 	//System.out.println(2);
 SVcheck temp = new SVcheck();
 //temp.layDanhSachSV();
-SV newSv = new SV("152","Hijikata",-8,"shinsegumi","Mayonise addict", "",null);
+/*SV newSv = new SV("152","Hijikata",-8,"shinsegumi","Mayonise addict", "",null);
 SV newSv1 = new SV("153","Gintoki",-8,"yorozura","Mayonise addict", "",null);
 SV newSv2 = new SV("154","kagura",-8,"yorozura","Mayonise addict", "",null);
 SV newSv3 = new SV("155","shinpachi",-8,"yorozura","Mayonise addict", "",null);
@@ -204,6 +277,10 @@ temp.addClassroom(cl4);
 //temp.deleteSV("152");
 //temp.addClassroom(cl);
 //SV sv = SVcheck.getSVInfo("145");
-//sv.output();
+//sv.output();*/
+//temp.getSubjectInfo("CT001");
+List<Schedule >ls = temp.getScheduleInfo();
+for(Schedule ss : ls)
+	ss.output();
 }
 }

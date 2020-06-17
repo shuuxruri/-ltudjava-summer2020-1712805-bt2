@@ -11,6 +11,7 @@ public class SV implements Serializable {
 	private String Address;
 	private String Note;
 	private String Picture;
+	private Set<Grade>Grades = new HashSet<Grade>(0);
 	Set<Classroom> classes = new HashSet<Classroom>();
 	public SV()
 	{
@@ -26,6 +27,7 @@ public class SV implements Serializable {
 		Picture = student.Picture;
 		classes = student.classes;
 		Id = student.Id;
+		Grades = student.Grades;
 	}
 	public Set<Classroom> getClasses()
 	{
@@ -53,6 +55,17 @@ public class SV implements Serializable {
 		Address = address;
 		Note = note;
 		Picture = picture;
+		classes = hp;
+	}
+	public SV(String mssv,String name,float score,String address,String note,String picture,Set<Grade>gp,Set<Classroom>hp)
+	{
+		Mssv = mssv;
+		Name= name;
+		Score = score;
+		Address = address;
+		Note = note;
+		Picture = picture;
+		Grades = gp;
 		classes = hp;
 	}
 	public String getName()
@@ -280,6 +293,18 @@ public class SV implements Serializable {
 		System.out.println("Error write file.");
 	}
 	
+	}
+	/**
+	 * @return the grades
+	 */
+	public Set<Grade> getGrades() {
+		return Grades;
+	}
+	/**
+	 * @param grades the grades to set
+	 */
+	public void setGrades(Set<Grade> grades) {
+		this.Grades = grades;
 	}
 	
 }

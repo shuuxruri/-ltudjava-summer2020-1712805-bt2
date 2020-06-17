@@ -1,19 +1,20 @@
 package testDB;
 
 import java.util.*;
+import java.io.*;
+public class Subject implements Serializable{
 
-public class Subject {
-
-	String Id;
+	String subjectId;
 	String Name;
-	Set<Classroom> classList = new HashSet<Classroom>();
+	//Set<Classroom> classList = new HashSet<Classroom>();
+	Set<Schedule> schedule = new HashSet<Schedule>();
 	public Subject() {
 		// TODO Auto-generated constructor stub
 	}
-	public Subject(String id, String name,Set<Classroom>list){
-		Id = id;
+	public Subject(String id, String name){
+		subjectId = id;
 		Name = name;
-		classList = list;
+		//classList = list;
 	}
 	public String getName()
 	{
@@ -22,18 +23,34 @@ public class Subject {
 	public void setName(String name){
 		Name = name;
 	}
-	public String getId()
+	public String getsubjectId()
 	{
-		return Id;
+		return subjectId;
 	}
-	public void setId(String id) {
-		Id = id;
+	public void setsubjectId(String id) {
+		subjectId = id;
 	}
-	public Set<Classroom> getClassList()
+	/*public Set<Classroom> getClassList()
 	{
 		return classList;
 	}
 	public void setClassList(Set<Classroom>list) {
 		classList = list;
+	}*/
+	public Set<Schedule> getSchedule()
+	{
+		return schedule;
 	}
+	public void setSchedule(Set<Schedule>list) {
+		schedule = list;
+	}
+	public void addSchedule(Schedule sc) {
+		schedule.add(sc);
+	}
+	public void subjectOutput()
+	{
+	System.out.println("Mã môn học: "+subjectId);	
+	System.out.println("Tên môn học: "+Name);	
+	}
+	
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jun 17, 2020 1:21:44 PM by Hibernate Tools 3.5.0.Final -->
-<hibernate-mapping default-access="field" package="testDB">
+<hibernate-mapping default-access="field" default-lazy="false" package="testDB">
  <class name="testDB.Classroom" table="CLASSROOM">
   <id name="Name" type="java.lang.String">
    <column name="name"/>
@@ -15,6 +15,20 @@
    <many-to-many entity-name="testDB.SV" unique="false">
     <column length="10" name="studentId" not-null="true"/>
    </many-to-many>
+  </set>
+  <set cascade="save-update" fetch="join" inverse="true" lazy="false"
+   name="ScheduleList" sort="unsorted" table="Schedule">
+   <key>
+    <column name="classId"/>
+   </key>
+   <one-to-many class="testDB.Schedule"/>
+  </set>
+   <set cascade="save-update" fetch="join" inverse="true" lazy="false"
+   name="GradeList" sort="unsorted" table="grade">
+   <key>
+    <column name="classId"/>
+   </key>
+   <one-to-many class="testDB.Schedule"/>
   </set>
  </class>
 </hibernate-mapping>

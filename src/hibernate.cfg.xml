@@ -11,5 +11,8 @@
   <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
   <mapping resource="testDB/SV.hbm.xml"/>
   <mapping resource="testDB/Classroom.hbm.xml"/>
+  <mapping resource="testDB/Subject.hbm.xml"/>
+  <mapping resource="testDB/Schesdule.hbm.xml"/>
+  <mapping resource="testDB/Grade.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

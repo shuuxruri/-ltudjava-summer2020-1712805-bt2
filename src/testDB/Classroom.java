@@ -10,9 +10,11 @@ import java.io.*;
 public class Classroom implements Serializable{
 //public static HashSet <SV> DSSV2 ;
 	String Name;
-public   Set <SV>DSSV= new HashSet<SV>(); 
+public   Set <SV>DSSV= new HashSet<SV>(0); 
 private static final char  DEFAULT_QUOTE = '\"';
 private static final char DEFAULT_SEPERATOR = ',';
+Set<Schedule>ScheduleList = new HashSet<Schedule>(0);
+private Set<Grade>GradeList = new HashSet<Grade>(0);
 
 public Classroom()
 {
@@ -39,16 +41,28 @@ public void setDSSV(Set<SV>dssv)
 {
 	DSSV = dssv;
 }
-public Classroom(String name, Set<SV> dssv)
+public Set<Schedule> getScheduleList()
+{
+return ScheduleList;	
+}
+public void setScheduleList(Set<Schedule>list)
+{
+	ScheduleList = list;
+}
+
+public Classroom(String name, Set<SV> dssv,Set<Grade>gp)
 
 {
 Name = name;
 DSSV = dssv;
+GradeList = gp;
 }
 public Classroom(Classroom Class)
 {
 Name = Class.Name;
 DSSV = Class.DSSV;
+ScheduleList = Class.ScheduleList;
+GradeList = Class.GradeList;
 }
 /*public static SV advancedConvert(String str)
 {
@@ -597,6 +611,18 @@ public static void main(String args[])throws IOException
 		//System.out.println(str);
 
 	
+}
+/**
+ * @return the GradeList
+ */
+public Set<Grade> getGradeList() {
+	return GradeList;
+}
+/**
+ * @param GradeList the GradeList to set
+ */
+public void setGradeList(Set<Grade> GradeList) {
+	this.GradeList = GradeList;
 }
 }
 
