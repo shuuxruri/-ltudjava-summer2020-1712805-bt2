@@ -16,19 +16,13 @@
     <column length="10" name="studentId" not-null="true"/>
    </many-to-many>
   </set>
-  <set cascade="save-update" fetch="join" inverse="true" lazy="false"
+ <set cascade="save-update" fetch="join" inverse="true" lazy="false"
    name="ScheduleList" sort="unsorted" table="Schedule">
    <key>
     <column name="classId"/>
    </key>
    <one-to-many class="testDB.Schedule"/>
   </set>
-   <set cascade="save-update" fetch="join" inverse="true" lazy="false"
-   name="GradeList" sort="unsorted" table="grade">
-   <key>
-    <column name="classId"/>
-   </key>
-   <one-to-many class="testDB.Schedule"/>
-  </set>
+ 
  </class>
 </hibernate-mapping>

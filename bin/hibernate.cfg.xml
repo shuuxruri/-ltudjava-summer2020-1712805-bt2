@@ -13,6 +13,5 @@
   <mapping resource="testDB/Classroom.hbm.xml"/>
   <mapping resource="testDB/Subject.hbm.xml"/>
   <mapping resource="testDB/Schedule.hbm.xml"/>
-  <mapping resource="testDB/Grade.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>

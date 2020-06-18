@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jun 17, 2020 1:21:44 PM by Hibernate Tools 3.5.0.Final -->
-<hibernate-mapping>
-     <class name="testDB.Grade" table="grade">
- <id name="Id" type="java.lang.Integer">
-   <column name="id"/>
-   <generator class="increment"/>
-  </id>
-   <property generated="never" lazy="false" name="midterm" type="float">
+<hibernate-mapping default-cascade="all" default-lazy="false">
+ <class name="testDB.Grade" table="grade">
+   <composite-id>
+            <key-property name="Mssv" column="studentId" />
+            <key-property name="classId" column="classId" />
+            
+        </composite-id>
+  <property generated="never" lazy="false" name="midterm" type="float">
    <column name="midterm"/>
   </property>
   <property generated="never" lazy="false" name="finalTerm" type="float">
@@ -20,14 +21,13 @@
   <property generated="never" lazy="false" name="total" type="float">
    <column name="total"/>
   </property>
-       <many-to-one class="testDB.SV" name="Mssv"
-fetch="select">
-<column name="subjectId" not-null="true"/>
-</many-to-one>
-  <many-to-one class="testDB.Classroom" name="classId"
-fetch="select">
-<column name="classId" not-null="true"/>
-</many-to-one>
-    
-    </class>
+  <property generated="never" index="Id" lazy="false" length="11"
+   name="Id" not-null="true" type="java.lang.Integer" unique="true"/>
+  <many-to-one class="testDB.SV" fetch="select" name="Mssv">
+   <column name="subjectId" not-null="true"/>
+  </many-to-one>
+  <many-to-one class="testDB.Classroom" fetch="select" name="classId">
+   <column name="classId" not-null="true"/>
+  </many-to-one>
+ </class>
 </hibernate-mapping>

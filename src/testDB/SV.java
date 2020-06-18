@@ -7,11 +7,11 @@ public class SV implements Serializable {
 	private String Mssv;
 	private String Name;
 	//private score Diem;
-	private float Score;
-	private String Address;
-	private String Note;
-	private String Picture;
-	private Set<Grade>Grades = new HashSet<Grade>(0);
+	
+	private String Gender;
+	private String CMND;
+	
+	//private Set<Grade>Grades = new HashSet<Grade>(0);
 	Set<Classroom> classes = new HashSet<Classroom>();
 	public SV()
 	{
@@ -21,13 +21,13 @@ public class SV implements Serializable {
 	{
 		Mssv = student.Mssv;
 		Name= student.Name;
-		Score = student.Score;
-		Address = student.Address;
-		Note = student.Note;
-		Picture = student.Picture;
+	
+		Gender = student.Gender;
+		CMND = student.CMND;
+		//Picture = student.Picture;
 		classes = student.classes;
 		Id = student.Id;
-		Grades = student.Grades;
+		//Grades = student.Grades;
 	}
 	public Set<Classroom> getClasses()
 	{
@@ -37,37 +37,42 @@ public class SV implements Serializable {
 	{
 		classes = Class;
 	}
-	public SV(String mssv,String name,float score,String address,String note,String picture,int id,Set<Classroom>hp)
+	public SV(int id,String mssv,String name,String gender,String cmnd,Set<Classroom>hp)
 	{
 		Mssv = mssv;
 		Name= name;
-		Score = score;
-		Address = address;
-		Note = note;
-		Picture = picture;
+		//Score = score;
+		Gender = gender;
+		CMND = cmnd;
+		//Picture = picture;
 		classes = hp;
+		Id = id;
 	}
-	public SV(String mssv,String name,float score,String address,String note,String picture,Set<Classroom>hp)
+	public SV(int id,String mssv,String name,String gender,String cmnd)
 	{
 		Mssv = mssv;
 		Name= name;
-		Score = score;
-		Address = address;
-		Note = note;
-		Picture = picture;
-		classes = hp;
+		//Score = score;
+		Gender = gender;
+		CMND = cmnd;
+		//Picture = picture;
+		classes = null;
+		Id = id;
 	}
-	public SV(String mssv,String name,float score,String address,String note,String picture,Set<Grade>gp,Set<Classroom>hp)
+	public void addClassroom(Classroom cl) {
+		classes.add(cl);
+	}
+	public SV(String mssv,String name,float score,String gender,String cmnd,Set<Classroom>hp)
 	{
 		Mssv = mssv;
 		Name= name;
-		Score = score;
-		Address = address;
-		Note = note;
-		Picture = picture;
-		Grades = gp;
+		
+		Gender = gender;
+		CMND = cmnd;
+		
 		classes = hp;
 	}
+	
 	public String getName()
 	{
 		return Name;
@@ -80,21 +85,15 @@ public class SV implements Serializable {
 	{
 		return Id;
 	}
-	public float getScore()
+	
+	public String getGender()
 	{
-		return Score;
+		return Gender;
 	}
-	public String getAddress()
+	
+	public String getCMND()
 	{
-		return Address;
-	}
-	public String getPicture()
-	{
-		return Picture;
-	}
-	public String getNote()
-	{
-		return Note;
+		return CMND;
 	}
 	public  SV getSV()
 	{
@@ -103,11 +102,11 @@ public class SV implements Serializable {
 	public void setSV(SV hs)
 	{
 		Name = hs.Name;
-		Address = hs.Address;
-		Score = hs.Score;
-		Note = hs.Note;
+		Gender = hs.Gender;
+		//Score = hs.Score;
+		CMND = hs.CMND;
 		Mssv = hs.Mssv;
-		Picture = hs.Picture;
+		//Picture = hs.Picture;
 		
 	}
 	public void setName(String name)
@@ -141,29 +140,18 @@ public class SV implements Serializable {
 		
 	}
 	}
-	public void setScore(float score)
-	{	
-		try
-	{
-		Score = score;
-		
-	}
-	catch(Exception ex)
-	{
-		System.out.println("failed");
-		
-	}
-	}
 	
-	public void setNote(String note)
+	
+	
+	public void setCMND(String cmnd)
 	{
-		Note = note;
+		CMND = cmnd;
 	}
-	public void setAddress(String address)
+	public void setGender(String gender)
 {
 	try
 	{
-		Address = address;
+		Gender = gender;
 	}
 	catch(Exception ex)
 	{
@@ -171,18 +159,15 @@ public class SV implements Serializable {
 	
 }
 }
-	public void setPicture(String picture)
-	{
-		Picture = picture;
-	}
+
 	public  void setStudent(SV hs)
 	{
 		Name = hs.Name;
-		Address = hs.Address;
-		Score = hs.Score;
-		Note = hs.Note;
+		Gender = hs.Gender;
+		//Score = hs.Score;
+		CMND = hs.CMND;
 		Mssv = hs.Mssv;
-		Picture = hs.Picture;
+		//Picture = hs.Picture;
 		
 	}
 	public void input(Scanner inputData )
@@ -212,36 +197,25 @@ public class SV implements Serializable {
 			Name = inputData.nextLine();
 		}
 		
-		System.out.println("Mời bạn nhập điểm");
-		try
-		{
-		Score = inputData.nextFloat();
-		}
-		catch(InputMismatchException a)
-		{
-			//do something
-			System.out.println("lỗi nhập sai số, mời khởi động lại");
-			System.exit(0);
-			//a.printStackTrace();
-		}
+		
+	
 		inputData.nextLine();
 		
 		System.out.println("Mời bạn nhập địa chỉ");
-		Address = inputData.nextLine();
-		while(Address.matches(regex))
+		Gender = inputData.nextLine();
+		while(Gender.matches(regex))
 		{
 			System.out.println("sai cú pháp, mời bạn nhập địa chỉ");
-			Address = inputData.nextLine();
+			Gender = inputData.nextLine();
 		}
 		System.out.println("Mời bạn nhập ghi chú");
-		Note = inputData.nextLine();
-		while (Note.matches(regex))
+		CMND = inputData.nextLine();
+		while (CMND.matches(regex))
 		{
 			System.out.println("sai cú pháp, mời bạn nhập ghi chú");
-			Note = inputData.nextLine();
+			CMND = inputData.nextLine();
 		}
-		System.out.println("Mời bạn nhập đường dẫn ảnh");
-		Picture = inputData.nextLine();
+	
 		
 	}
 	
@@ -253,15 +227,13 @@ public class SV implements Serializable {
 		System.out.println(Mssv);
 		System.out.print("tên: ");
 		System.out.println(Name);
-		System.out.print("điểm: ");
-		System.out.println(Score);
 		
-		System.out.print("địa chỉ: ");
-		System.out.println(Address);
-		System.out.print("ghi chú: ");
-		System.out.println(Note);
-		System.out.print("Đường dẫn ảnh: ");
-		System.out.println(Picture);
+		
+		System.out.print("Giới tính: ");
+		System.out.println(Gender);
+		System.out.print("CMND: ");
+		System.out.println(CMND);
+		
 	
 		
 	}
@@ -283,9 +255,9 @@ public class SV implements Serializable {
 	{
 		dos.writeUTF(Mssv);
 		dos.writeUTF(Name);
-		dos.writeDouble(Score);
-		dos.writeUTF(Address);
-		dos.writeUTF(Note);
+		
+		dos.writeUTF(Gender);
+		dos.writeUTF(CMND);
 		dos.close();
 	}
 	catch(IOException exc) 
@@ -297,15 +269,17 @@ public class SV implements Serializable {
 	/**
 	 * @return the grades
 	 */
-	public Set<Grade> getGrades() {
+	/*public Set<Grade> getGrades() {
 		return Grades;
 	}
-	/**
-	 * @param grades the grades to set
-	 */
+	
 	public void setGrades(Set<Grade> grades) {
 		this.Grades = grades;
-	}
+	}*/
+	/**
+	 * @return the gender
+	 */
+	
 	
 }
 

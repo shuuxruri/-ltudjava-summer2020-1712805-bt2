@@ -14,7 +14,7 @@ public   Set <SV>DSSV= new HashSet<SV>(0);
 private static final char  DEFAULT_QUOTE = '\"';
 private static final char DEFAULT_SEPERATOR = ',';
 Set<Schedule>ScheduleList = new HashSet<Schedule>(0);
-private Set<Grade>GradeList = new HashSet<Grade>(0);
+//private Set<Grade>GradeList = new HashSet<Grade>(0);
 
 public Classroom()
 {
@@ -25,9 +25,9 @@ public String getName()
 {
 return Name;	
 }
-public void setName()
+public void setName(String name)
 {
-	
+	Name = name;
 }
 /*public Set<SV> getDSSV()
 {
@@ -50,19 +50,23 @@ public void setScheduleList(Set<Schedule>list)
 	ScheduleList = list;
 }
 
-public Classroom(String name, Set<SV> dssv,Set<Grade>gp)
+public Classroom(String name, Set<SV> dssv)
 
 {
 Name = name;
 DSSV = dssv;
-GradeList = gp;
+//GradeList = gp;
+}
+public void addSV(SV sv)
+{
+DSSV.add(sv)	;
 }
 public Classroom(Classroom Class)
 {
 Name = Class.Name;
 DSSV = Class.DSSV;
 ScheduleList = Class.ScheduleList;
-GradeList = Class.GradeList;
+//GradeList = Class.GradeList;
 }
 public void addSchedule(Schedule sc) {
 	ScheduleList.add(sc);
@@ -220,7 +224,7 @@ public static SV advancedConvert(String str)
 		}
 		
 	// có thể làm cách ít lỗi hơn bằng cách đem hết vào 1 mảng String[]( như cách ở dưới
-	SV student = new SV(result.get(0),result.get(1),Float.parseFloat(result.get(2)),result.get(3),result.get(4),result.get(5),1,null);
+	SV student = new SV(Integer.valueOf(result.get(0)),result.get(1),result.get(2),result.get(3),result.get(4));
 	
 	return  student;
 }
@@ -303,21 +307,10 @@ public  void writeTextFile(String path)
 	 bw = new BufferedWriter(new FileWriter(path));
 	 for(SV student : DSSV)
 		{	
-		 String fixedAdress = student.getAddress();
-		 String fixedNote = student.getNote();
-		 String fixedLinkedPicture = student.getPicture();
-		 if(fixedAdress.matches(regex)) {
-			 fixedAdress = "\""+ student.getAddress()+"\"";
-		 }
-		 if(fixedNote.matches(regex)) {
-			 fixedNote = "\""+ student.getNote()+"\"";
-		 }
-		 if(fixedLinkedPicture.matches(regex)) {
-			 fixedLinkedPicture = "\""+ student.getPicture()+"\"";
-		 }
-			String str = student.getMssv()+','+student.getName()+','+Float. toString(student.getScore())+','+fixedAdress
-			+','+fixedNote+','+fixedLinkedPicture+'\n';
-			bw.write(str);
+		
+			//String str = student.getMssv()+','+student.getName()+','+','+fixedAdress
+		//	+','+fixedNote+','+fixedLinkedPicture+'\n';
+			//bw.write(str);
 			//System.out.println(str);
 			//System.out.println("done");
 		}
@@ -623,14 +616,12 @@ public static void main(String args[])throws IOException
 /**
  * @return the GradeList
  */
-public Set<Grade> getGradeList() {
+/*public Set<Grade> getGradeList() {
 	return GradeList;
 }
-/**
- * @param GradeList the GradeList to set
- */
+
 public void setGradeList(Set<Grade> GradeList) {
 	this.GradeList = GradeList;
-}
+}*/
 }
 

@@ -11,19 +11,14 @@
   <property generated="never" lazy="false" name="Name" type="java.lang.String">
    <column name="Name"/>
   </property>
-  <property generated="never" lazy="false" name="Score" type="float">
-   <column name="Score"/>
+  
+  <property generated="never" lazy="false" name="Gender" type="java.lang.String">
+   <column name="gender"/>
   </property>
-  <property generated="never" lazy="false" name="Address" type="java.lang.String">
-   <column name="Address"/>
+  <property generated="never" lazy="false" name="CMND" type="java.lang.String">
+   <column name="cmnd"/>
   </property>
-  <property generated="never" lazy="false" name="Note" type="java.lang.String">
-   <column name="Note"/>
-  </property>
-  <property generated="never" lazy="false" name="Picture" type="java.lang.String">
-   <column name="picture"/>
-  </property>
-  <property generated="never" index="Id" lazy="false" length="11"
+  <property generated="never"  lazy="false" length="11"
    name="Id" not-null="true" type="java.lang.Integer" unique="true"/>
         <set inverse = "false" name="classes" table="sv_classroom"  lazy="true" cascade="save-update" >
             <key>
@@ -34,12 +29,6 @@
 name="classId" not-null="true"/>
 </many-to-many>
         </set>
-        <set cascade="save-update" fetch="join" inverse="true" lazy="false"
-   name="Grades" sort="unsorted" table="grade">
-   <key>
-    <column name="svId"/>
-   </key>
-   <one-to-many class="testDB.Grade"/>
-  </set>
+      
     </class>
 </hibernate-mapping>
