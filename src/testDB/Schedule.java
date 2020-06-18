@@ -76,6 +76,11 @@ public class Schedule implements Serializable {
 		room = Room;
 		
 	}
-	
+	public Schedule(String Room,int id)
+	{
+		Id = id;
+		room = Room;
+		
+	}
 
 }

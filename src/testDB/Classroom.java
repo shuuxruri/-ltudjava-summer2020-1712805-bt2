@@ -9,7 +9,7 @@ import java.io.*;
 //package java.io.package.*;
 public class Classroom implements Serializable{
 //public static HashSet <SV> DSSV2 ;
-	String Name;
+	String classId;
 public   Set <SV>DSSV= new HashSet<SV>(0); 
 private static final char  DEFAULT_QUOTE = '\"';
 private static final char DEFAULT_SEPERATOR = ',';
@@ -21,13 +21,13 @@ public Classroom()
 	
 	
 }
-public String getName()
+public String getClassId()
 {
-return Name;	
+return classId;	
 }
-public void setName(String name)
+public void setClassId(String name)
 {
-	Name = name;
+	classId = name;
 }
 /*public Set<SV> getDSSV()
 {
@@ -53,8 +53,9 @@ public void setScheduleList(Set<Schedule>list)
 public Classroom(String name, Set<SV> dssv)
 
 {
-Name = name;
-DSSV = dssv;
+classId = name;
+for(SV sv:dssv)
+	DSSV.add(sv);
 //GradeList = gp;
 }
 public void addSV(SV sv)
@@ -63,7 +64,7 @@ DSSV.add(sv)	;
 }
 public Classroom(Classroom Class)
 {
-Name = Class.Name;
+classId = Class.classId;
 DSSV = Class.DSSV;
 ScheduleList = Class.ScheduleList;
 //GradeList = Class.GradeList;
@@ -74,7 +75,7 @@ public void addSchedule(Schedule sc) {
 
 public void output()
 {
-System.out.println("Tên lớp: "+Name);	
+System.out.println("Tên lớp: "+classId);	
 }
 /*public static SV advancedConvert(String str)
 {
@@ -308,7 +309,7 @@ public  void writeTextFile(String path)
 	 for(SV student : DSSV)
 		{	
 		
-			//String str = student.getMssv()+','+student.getName()+','+','+fixedAdress
+			//String str = student.getMssv()+','+student.getclassId()+','+','+fixedAdress
 		//	+','+fixedNote+','+fixedLinkedPicture+'\n';
 			//bw.write(str);
 			//System.out.println(str);

@@ -72,7 +72,7 @@ public class Subject implements Serializable{
 	for(Schedule temp: schedule)
 		{
 		Classroom x = temp.getClassId();
-		System.out.println("Tên lớp: "+x.getName());
+		System.out.println("Tên lớp: "+x.getClassId());
 		///System.out.println("Phòng: "+temp.getRoom());
 		}
 	}

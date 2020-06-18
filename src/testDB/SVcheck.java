@@ -158,8 +158,9 @@ session.close();
 }
 return true; }
 public static boolean addClassroom(Classroom classes) {
-Session session = HibernateUtil.getSessionFactory().openSession();
-System.out.println("Name is "+classes.getName());
+Session session = null;
+session = HibernateUtil.getSessionFactory().openSession();
+
 //if (getClassInfo(classes.getName())!=null) {
 //return false; }
 Transaction transaction = null;
@@ -167,9 +168,11 @@ Transaction transaction = null;
 
 
 try {
+
 transaction = session.beginTransaction();
-session.flush();  
+ 
 session.saveOrUpdate(classes);
+
 transaction.commit();
 } catch (HibernateException ex) {
 //Log the exception
@@ -182,21 +185,74 @@ session.close();
 System.out.println("done");
 return true; }
 
-
+public void c4(String path)
+{
+	Classroom cl = null;
+	Session session = HibernateUtil.getSessionFactory().openSession();
+	
+	//if (getClassInfo(classes.getName())!=null) {
+	//return false; }
+	Transaction transaction = null;
+	try {
+		
+	cl = readImportC3(path);
+	
+	addClassroom(cl);
+	
+	String tempClassName = cl.getClassId();
+	
+	String hql= " select distinct subjectId ";
+	hql +="from Schedule sc";
+	hql += " where sc.classId=:classId";
+	TypedQuery<Subject> query = session.createQuery(hql);
+	query.setParameter("classId", cl);
+	
+	
+	List<Subject>IdList = query.getResultList();
+	List<String> subjectIdList= new ArrayList<String>();
+	for(Subject sj :IdList)
+		subjectIdList.add(sj.getsubjectId());
+	//subjectIdList.add("CT0011");
+	//subjectIdList.add("CT0012");
+	
+	for(int i = 0; i < subjectIdList.size(); i++)
+		{
+		
+		
+		Set<SV>svList = new HashSet<SV>();
+		svList = getSVList(tempClassName);
+		for(SV sv:svList)
+		{
+		sv.output();
+		System.out.println("-----------------");
+		
+		}
+		Classroom temp = new Classroom(tempClassName+"-"+subjectIdList.get(i),svList);
+		addClassroom(temp);
+		
+	
+		}
+	
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+	finally {
+		session.close();
+		}
+	
+}
 public Set<SV>getSVList(String ClassId)
 {
 	Session session = HibernateUtil.getSessionFactory()
 			.openSession();
-	
+	Set<SV>svList = null;
 			try {
-			String hql= " select  sv";
-			hql +="from SV sv ";
-			hql += " where sv.classId=:name";
-			TypedQuery<SV> query = session.createQuery(hql);
-			query.setParameter("name", ClassId);
-			List<SV>svList = query.getResultList();
-			for(SV sv:svList)
-				sv.output();
+			
+			
+			Classroom cl = session.get(Classroom.class,ClassId);
+			svList = cl.getDSSV();
 			} catch (HibernateException ex) {
 			System.err.println(ex);
 			}catch(NoResultException nores)
@@ -206,7 +262,7 @@ public Set<SV>getSVList(String ClassId)
 			finally {
 			session.close();
 			}
-return null;	
+return svList;	
 }
 public static List<Schedule> getScheduleInfo() {
 	List<Schedule> Sc = null;
@@ -298,6 +354,7 @@ Session session = HibernateUtil.getSessionFactory().openSession();
 
 Transaction transaction = null;
 try {
+	
 transaction = session.beginTransaction();
 session.saveOrUpdate(sc);
 transaction.commit();
@@ -331,7 +388,7 @@ public Classroom readImportC1(String path)
 		   cl = new Classroom();
 		  if(pos != -1)
 			  line = line.substring(0,pos);
-		  	cl.setName(line);
+		  	cl.setClassId(line);
 		  // trừ dòng tiêu đề.
 		  line = br.readLine();
 		  List<String> result =new ArrayList<String>();
@@ -365,7 +422,8 @@ public Classroom readImportC1(String path)
 }
 public Classroom readImportC3(String path)
 {
-	
+	Session session = HibernateUtil.getSessionFactory()
+			.openSession();
 		//FileReader fr = new FileReader("C:\\Users\\DELL\\Desktop\\comment reading.txt");
 		BufferedReader br;
 		Classroom cl = null;
@@ -375,32 +433,48 @@ public Classroom readImportC3(String path)
 		  String line = "";
 		  line = br.readLine();
 		  int pos = line.indexOf(',');
-		   cl = new Classroom();
+		  
 		  if(pos != -1)
 			  line = line.substring(0,pos);
-		  	cl.setName(line);
+		  	
+		  	 cl = session.get(Classroom.class,line);
+		  	 if(cl ==null)
+		  	 {
+		  		 cl = new Classroom();
+		  		 cl.setClassId(line);
+		  	 }
 		  // trừ dòng tiêu đề.
 		  line = br.readLine();
-			System.out.println(line);
+			
 		  List<String> result =new ArrayList<String>();
 		    while ((line = br.readLine()) != null) {
 		    
 		    	String []list = line.split(",");
-		    	System.out.println(line);
-		    	System.out.println(list.length);
+		    	
 		    	for(int i = 0; i < list.length;i++)
 		    		result.add(list[i]);
-		    	Subject sj = new Subject(list[1],list[2],null);
+		    	Subject sj = session.get(Subject.class, list[1]);
+		    	if(sj==null)
+		    		sj = new Subject(list[1],list[2],null);
+		    /*	Schedule sc = session.get(Schedule.class,Integer.valueOf(list[0]));
+		    	
+		    	if(sc ==null)
+		    	 sc = new Schedule(list[3],Integer.valueOf(list[0]));*/
 		    	Schedule sc = new Schedule(list[3]);
+		    	
 		    	sc.setSubjectId(sj);
 		    	sc.setClassroom(cl);
 		    	sj.addSchedule(sc);
 		    	cl.addSchedule(sc);
+		    	
 		    	//SV student = new SV(Integer.valueOf(list[0]),list[1],list[2],list[3],list[4]);
 		    	//cl.addSV(student);
 		    	//student.output();
 		    }
+		    //addClassroom(cl);
 		    br.close();
+		   
+		    
 		}
 		catch( FileNotFoundException ex )
 		{
@@ -413,67 +487,17 @@ public Classroom readImportC3(String path)
 			System.out.println("error read file");
 			return null;
 		}
-		
+		finally {
+			
+			session.close();
+		}
+		// addClassroom(cl);
 		
 	return cl;	
 		
 	
 }
-public Schedule readImportC32(String path)
-{
-	
-		//FileReader fr = new FileReader("C:\\Users\\DELL\\Desktop\\comment reading.txt");
-		BufferedReader br;
-		Classroom cl = null;
-		try 
-		{
-		 br = new BufferedReader(new FileReader(path));
-		  String line = "";
-		  line = br.readLine();
-		  int pos = line.indexOf(',');
-		   cl = new Classroom();
-		  if(pos != -1)
-			  line = line.substring(0,pos);
-		  	cl.setName(line);
-		  // trừ dòng tiêu đề.
-		  line = br.readLine();
-			System.out.println(line);
-		  List<String> result =new ArrayList<String>();
-		    while ((line = br.readLine()) != null) {
-		    
-		    	String []list = line.split(",");
-		    	
-		    	
-		    	for(int i = 0; i < list.length;i++)
-		    		result.add(list[i]);
-		    	Subject sj = new Subject(list[1],list[2],null);
-		    	Schedule sc = new Schedule(list[3]);
-		    	sc.setSubjectId(sj);
-		    	sc.setClassroom(cl);
-		    	cl.addSchedule(sc);
-		    	//SV student = new SV(Integer.valueOf(list[0]),list[1],list[2],list[3],list[4]);
-		    	//cl.addSV(student);
-		    	//student.output();
-		    }
-		    br.close();
-		}
-		catch( FileNotFoundException ex )
-		{
-			System.out.println("File Not Found");
-			return null;
-		}
-		catch(IOException e)
-		{
 
-			System.out.println("error read file");
-			return null;
-		}
-		
-		
-	return null;	
-		
-	
-}
 
 
 
@@ -562,8 +586,10 @@ public static void main(String args[])
 SVcheck temp = new SVcheck();
 Classroom cl = temp.readImportC1("input1.csv");
 temp.addClassroom(cl);
-temp.getSVList("17CTT6");
-
+Classroom cl2 = temp.readImportC3("input3.csv");
+//temp.addClassroom(cl2);
+//temp.addClassroom(cl2);
+temp.c4("input3.csv");
 
 	
 //temp.addSubject(sj);

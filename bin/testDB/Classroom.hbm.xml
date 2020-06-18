@@ -4,7 +4,7 @@
 <!-- Generated Jun 17, 2020 1:21:44 PM by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping default-access="field" default-lazy="false" package="testDB">
  <class name="testDB.Classroom" table="CLASSROOM">
-  <id name="Name" type="java.lang.String">
+  <id name="classId" type="java.lang.String">
    <column name="name"/>
    <generator class="assigned"/>
   </id>

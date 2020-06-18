@@ -11,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Insets;
 
 public class swing {
-
+	public SVcheck test= new SVcheck();
 	private JFrame frame;
 
 	/**
@@ -46,9 +46,9 @@ public class swing {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		frame.getContentPane().setLayout(gridBagLayout);
 		
 		JButton btnNewButton_1 = new JButton("Thêm thời khóa biểu");
@@ -60,12 +60,14 @@ public class swing {
 		JButton btnThmLp = new JButton("Thêm lớp");
 		btnThmLp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				test.c4("input3.txt");
 			}
 		});
 		
 		JButton btnNewButton = new JButton("Đăng nhập");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -87,10 +89,17 @@ public class swing {
 		frame.getContentPane().add(btnThmLp, gbc_btnThmLp);
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.anchor = GridBagConstraints.EAST;
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_1.gridx = 7;
 		gbc_btnNewButton_1.gridy = 4;
 		frame.getContentPane().add(btnNewButton_1, gbc_btnNewButton_1);
+		
+		JButton btnXemThiKha = new JButton("Xem thời khóa biểu");
+		GridBagConstraints gbc_btnXemThiKha = new GridBagConstraints();
+		gbc_btnXemThiKha.insets = new Insets(0, 0, 0, 5);
+		gbc_btnXemThiKha.gridx = 7;
+		gbc_btnXemThiKha.gridy = 5;
+		frame.getContentPane().add(btnXemThiKha, gbc_btnXemThiKha);
 	}
 
 }
