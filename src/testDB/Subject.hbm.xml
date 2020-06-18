@@ -2,19 +2,19 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
                                    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated Jun 17, 2020 1:21:44 PM by Hibernate Tools 3.5.0.Final -->
-<hibernate-mapping default-lazy="false">
+<hibernate-mapping default-cascade="all" default-lazy="false">
  <class name="testDB.Subject" table="SUBJECT">
   <id length="30" name="subjectId" type="java.lang.String">
-   <column name="id"/>
+   <column name="subjectId"/>
    <generator class="assigned"/>
   </id>
   <property generated="never" lazy="false" name="Name" type="java.lang.String">
    <column name="NAME"/>
   </property>
-  <set cascade="save-update" fetch="join" inverse="true" lazy="false"
+  <set cascade="save-update"  inverse="true" lazy="false"
    name="schedule" sort="unsorted" table="Schedule">
    <key>
-    <column name="subjectId"/>
+    <column name="subjectId" not-null="true"/>
    </key>
    <one-to-many class="testDB.Schedule"/>
   </set>

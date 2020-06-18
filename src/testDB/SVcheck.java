@@ -204,13 +204,14 @@ public static Subject getSubjectInfo(String subjectId) {
 			.openSession();
 	
 			try {
-
+/*
 				String hql=" select sj ";
 				hql+= " from Subject sj left join fetch sj.schedule";
 				hql+= " where dm.subjectId=:subject";
 				TypedQuery<Subject> query = session.createQuery(hql);
 				query.setParameter("subject", subjectId);
-				Sj = query.getSingleResult();
+				Sj = query.getSingleResult();*/
+				Sj = (Subject)session.get(Subject.class, subjectId);
 			} catch (HibernateException ex) {
 			System.err.println(ex);
 			}catch(NoResultException nores)
@@ -225,8 +226,7 @@ public static Subject getSubjectInfo(String subjectId) {
 
 public static boolean addSubject(Subject sj) {
 Session session = HibernateUtil.getSessionFactory().openSession();
-if (getSubjectInfo(sj.getName())!=null) {
-return false; }
+
 Transaction transaction = null;
 try {
 transaction = session.beginTransaction();
@@ -235,14 +235,49 @@ transaction.commit();
 } catch (HibernateException ex) {
 //Log the exception
 transaction.rollback();
-System.out.println("done");
+System.out.println("roll back done");
 System.err.println(ex);
 } finally {
 session.close();
 }
 System.out.println("done");
 return true; }
+public static boolean addSchedule(Schedule sc) {
+Session session = HibernateUtil.getSessionFactory().openSession();
 
+Transaction transaction = null;
+try {
+transaction = session.beginTransaction();
+session.saveOrUpdate(sc);
+transaction.commit();
+} catch (HibernateException ex) {
+//Log the exception
+transaction.rollback();
+System.out.println("roll back done");
+System.err.println(ex);
+} finally {
+session.close();
+}
+System.out.println("done");
+return true; }
+public static boolean addShedule(Schedule sc) {
+Session session = HibernateUtil.getSessionFactory().openSession();
+
+Transaction transaction = null;
+try {
+transaction = session.beginTransaction();
+session.saveOrUpdate(sc);
+transaction.commit();
+} catch (HibernateException ex) {
+//Log the exception
+transaction.rollback();
+System.out.println("rollback done");
+System.err.println(ex);
+} finally {
+session.close();
+}
+System.out.println("done");
+return true; }
 
 
 
@@ -278,9 +313,31 @@ temp.addClassroom(cl4);
 //temp.addClassroom(cl);
 //SV sv = SVcheck.getSVInfo("145");
 //sv.output();*/
-//temp.getSubjectInfo("CT001");
-List<Schedule >ls = temp.getScheduleInfo();
-for(Schedule ss : ls)
-	ss.output();
+//temp.getSubjectInfo("CT001").subjectOutput();
+/*List<Schedule >ls = temp.getScheduleInfo();
+
+ls2.addAll(ls);
+*/
+Set<Schedule>ls2 = new HashSet<Schedule>();
+Classroom cl3 = new Classroom("17_38",null,null);
+Subject sj = new Subject("JAC","Japanese anime Capital",null);
+
+//temp.addSubject(sj);
+System.out.println("dooooooooooooooooooooooooooo");
+
+Schedule s = new Schedule("306");
+s.setSubjectId(sj);
+s.setClassroom(cl3);
+ls2.add(s);
+temp.addShedule(s);
+//sj.addSchedule(s);
+	
+	//temp.addSubject(sj);
+	
+//temp.addSubject(sj);
+
+
+
+//temp.addSubject(sj);
 }
 }

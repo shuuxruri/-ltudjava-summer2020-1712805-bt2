@@ -64,6 +64,14 @@ DSSV = Class.DSSV;
 ScheduleList = Class.ScheduleList;
 GradeList = Class.GradeList;
 }
+public void addSchedule(Schedule sc) {
+	ScheduleList.add(sc);
+}
+
+public void output()
+{
+System.out.println("Tên lớp: "+Name);	
+}
 /*public static SV advancedConvert(String str)
 {
 	boolean startCollect = false;

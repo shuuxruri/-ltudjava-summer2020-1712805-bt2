@@ -6,8 +6,8 @@ import java.util.*;
 public class Schedule implements Serializable {
 
 	//Set<Classroom> classList = new HashSet<Classroom>();
-	private Classroom classId;
-	private Subject subjectId;
+	private Classroom classId = new Classroom();
+	private Subject subjectId = new Subject();
 	private String room;
 	private int Id;
 	
@@ -38,14 +38,25 @@ public class Schedule implements Serializable {
 	public void setRoom(String room) {
 		this.room = room;
 	}
+	public Schedule(String Room)
+	{
+		subjectId = null;
+		classId = null;
+		room = Room;
+	}
 	public Schedule(Classroom ClassId,Subject SubjectId,String Room)
 	{
 		classId = ClassId;
 		subjectId = SubjectId;
 		room = Room;
 	}
+	public void setClassroom(Classroom cl) {
+		classId = cl;
+	}
+	
 	void output() {
 		//System.out.println("Lớp: "+classId);
+		classId.output();
 		subjectId.subjectOutput();
 		System.out.println("Phòng: "+room);
 	}
