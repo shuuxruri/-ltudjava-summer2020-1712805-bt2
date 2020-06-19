@@ -11,7 +11,7 @@ public class SV implements Serializable {
 	private String Gender;
 	private String CMND;
 	
-	//private Set<Grade>Grades = new HashSet<Grade>(0);
+	private Set<Grade>Grades = new HashSet<Grade>(0);
 	Set<Classroom> classes = new HashSet<Classroom>();
 	public SV()
 	{
@@ -279,6 +279,16 @@ public class SV implements Serializable {
 	/**
 	 * @return the gender
 	 */
+	public Set<Grade> getGrades() {
+		return Grades;
+	}
+	public void setGrades(Set<Grade> grades) {
+		Grades = grades;
+	}
+	public void addGrade(Grade gp) {
+		Grades.add(gp);
+		
+	}
 	
 	
 }

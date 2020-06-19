@@ -72,7 +72,7 @@ public static Classroom getClassInfo(String ClassId)
 			try {
 			String hql= " select cl ";
 			hql +="from Classroom cl left join fetch cl.DSSV";
-			hql += " where cl.Name=:name";
+			hql += " where cl.classId=:name";
 			TypedQuery<Classroom> query = session.createQuery(hql);
 			query.setParameter("name", ClassId);
 			Class = query.getSingleResult();
@@ -110,6 +110,23 @@ Transaction transaction = null;
 try {
 transaction = session.beginTransaction();
 session.saveOrUpdate(sv);
+transaction.commit();
+} catch (HibernateException ex) {
+//Log the exception
+transaction.rollback();
+System.out.println("done");
+System.err.println(ex);
+} finally {
+session.close();
+}
+return true; }
+public static boolean updateGrade(Grade gp) {
+Session session = HibernateUtil.getSessionFactory().openSession();
+
+Transaction transaction = null;
+try {
+transaction = session.beginTransaction();
+session.saveOrUpdate(gp);
 transaction.commit();
 } catch (HibernateException ex) {
 //Log the exception
@@ -192,9 +209,9 @@ public void c4(String path)
 	
 	//if (getClassInfo(classes.getName())!=null) {
 	//return false; }
-	Transaction transaction = null;
+	
 	try {
-		
+	
 	cl = readImportC3(path);
 	
 	addClassroom(cl);
@@ -497,9 +514,97 @@ public Classroom readImportC3(String path)
 		
 	
 }
+////////////////////////////////////danger
+public boolean c7(String path) {
+	BufferedReader br;
+	Classroom cl = null;
+	System.out.println("can we get here?");
+	Session session = HibernateUtil.getSessionFactory().openSession();
+	
+	try 
+	{
+	 br = new BufferedReader(new FileReader(path));
+	  String line = "";
+	  line = br.readLine();
+	  System.out.println(line);
+	  if(line.indexOf('–')==-1)
+		 
+		  {
+		  System.out.println("Not good");
+		  br.close();
+		  return false;
+		  }
+		  
+	  int pos = line.indexOf(',');
+	 
+	  if(pos != -1)
+		  line = line.substring(0,pos);
+	  cl = session.get(Classroom.class, line);
+	  if(cl==null)
+	  {
+		  cl = new Classroom();
+		  cl.setClassId(line);
+	  }
+	  // trừ dòng tiêu đề.
+	  line = br.readLine();
+	  List<String> result =new ArrayList<String>();
+	    while ((line = br.readLine()) != null) {
+	    	System.out.println("can we get here?");
+	    	String []list = line.split(",");
+	    	for(int i = 0; i < list.length;i++)
+	    		result.add(list[i]);
+	    	SV sv = session.get(SV.class,list[1]);
+	    	if(sv == null)
+	    	{
+	    		//System.out.println("Lỗi, không có Sinh viên với mssv"+list[1]+" trong danh sách lớp ");
+	    		//return false;
+	    		sv = new SV();
+	    		sv.setMssv(list[1]);
+	    		sv.setName(list[2]);
+	    	}
+	    	
+	    	Grade grade = new Grade(Integer.valueOf(list[0]),sv,cl,Float.valueOf(list[3]),Float.valueOf(list[4]),Float.valueOf(list[5]),Float.valueOf(list[6]));
+	    	sv.addGrade(grade);
+	    	cl.addSV(sv);
+	    
+	    	sv.output();
+	    }
+	   addClassroom(cl);
+	   br.close();
+	}
+	catch( FileNotFoundException ex )
+	{
+		System.out.println("File Not Found");
+		return false;
+	}
+	catch(IOException e)
+	{
 
-
-
+		System.out.println("error read file");
+		return false;
+	}
+	catch(Exception ee)
+	{
+		ee.printStackTrace();
+	}
+	
+	
+	
+return false;	
+}
+public void watchClassPoint(String classId)
+{
+	if(classId.indexOf('–')==-1)
+	{
+		System.out.println("Lớp không tồn tại hoặc không có môn học");
+		return;
+	}
+		
+Classroom cl = getClassInfo(classId);	
+Set<Grade> list = cl.getGradeList();
+for(Grade ls: list)
+	ls.output();
+}
 
 
 
@@ -577,19 +682,42 @@ cl3.addSchedule(s);
 cl3.addSchedule(s2);
 	*/
 }
-
+public void c9()
+{
+	SV sv = getSVInfo("1842003");
+	Classroom cl = getClassInfo("18HCB–CTT001");
+	Grade gp = new Grade(1,sv,cl,5,6,7,8);
+	updateGrade(gp);
+	
+}
 public static void main(String args[])
 {
 	//System.out.println(2);
 	
 	
 SVcheck temp = new SVcheck();
-Classroom cl = temp.readImportC1("input1.csv");
-temp.addClassroom(cl);
-Classroom cl2 = temp.readImportC3("input3.csv");
+temp.c9();
+//SV newSv1 = new SV(1,"Gintoki","yorozura","Mayonise", "",null);
+
+//Set<SV> listsv = new HashSet<SV>();
+//listsv.add(newSv);
+//listsv.add(newSv1);
+
+//temp.c7("input7.csv");
+//temp.watchClassPoint("18HCB–CTT001");
+
+//Classroom cl3 = new Classroom("17CTT6C",null);
+//Set<Classroom>list = new HashSet<Classroom>();
+
+//list.add(cl3);
+//newSv1.setClasses(list);
+//temp.addSV(newSv1);
+//Classroom cl = temp.readImportC1("input1.csv");
+//temp.addClassroom(cl);
+//Classroom cl2 = temp.readImportC3("input3.csv");
 //temp.addClassroom(cl2);
 //temp.addClassroom(cl2);
-temp.c4("input3.csv");
+//temp.c4("input3.csv");
 
 	
 //temp.addSubject(sj);

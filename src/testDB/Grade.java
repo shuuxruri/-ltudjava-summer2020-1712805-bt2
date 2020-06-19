@@ -1,8 +1,9 @@
 package testDB;
 
-public class Grade {
-	private Classroom classId;
-	private SV Mssv;
+import java.io.Serializable;
+
+public class Grade implements Serializable {
+	private svClassroomId idKey;
 	private float midterm;
 	private float finalTerm;
 	private float otherPoint;
@@ -11,14 +12,6 @@ public class Grade {
 	public Grade() {
 		// TODO Auto-generated constructor stub
 		
-	}
-
-	public Classroom getClassId() {
-		return classId;
-	}
-
-	public void setClassId(Classroom classId) {
-		this.classId = classId;
 	}
 
 	
@@ -81,17 +74,7 @@ public class Grade {
 	/**
 	 * @return the mssv
 	 */
-	public SV getMssv() {
-		return Mssv;
-	}
-
-	/**
-	 * @param mssv the mssv to set
-	 */
-	public void setMssv(SV mssv) {
-		Mssv = mssv;
-	}
-
+	
 	/**
 	 * @return the id
 	 */
@@ -104,6 +87,38 @@ public class Grade {
 	 */
 	public void setId(int id) {
 		Id = id;
+	}
+
+	public svClassroomId getidKey() {
+		return idKey;
+	}
+
+	public void setidKey(svClassroomId idkey) {
+		idKey = idkey;
+	}
+	public Grade(svClassroomId key, float GK,float CK,float Other,float Sum) {
+		idKey = key;
+		midterm = GK;
+		finalTerm = CK;
+		otherPoint = Other;
+		total = Sum;
+	}
+	public Grade(int id,SV sv, Classroom cl, float GK,float CK,float Other,float Sum) {
+		idKey = new svClassroomId(sv,cl);
+		midterm = GK;
+		finalTerm = CK;
+		otherPoint = Other;
+		total = Sum;
+	}
+	public void output() {
+		SV sv = idKey.getMssv();
+		System.out.println("Mssv: "+sv.getMssv());
+		System.out.println("Họ tên: "+sv.getName());
+		System.out.println("Điểm giữa kỳ: "+midterm);
+		System.out.println("Điểm cuối kỳ: "+finalTerm);
+		System.out.println("Điểm khác: "+otherPoint);
+		System.out.println("Tổng điểm: "+total);
+		
 	}
 
 }

@@ -29,6 +29,11 @@
 name="classId" not-null="true"/>
 </many-to-many>
         </set>
-      
+       <set name="Grades" table="Grade" lazy="true" access="field" fetch="select" cascade="all">
+        <key>
+            <column name="studentId" not-null="true" />
+        </key>
+        <one-to-many class = "testDB.Grade"/>
+    </set>
     </class>
 </hibernate-mapping>

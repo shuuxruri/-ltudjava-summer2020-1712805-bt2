@@ -4,11 +4,10 @@
 <!-- Generated Jun 17, 2020 1:21:44 PM by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping default-cascade="all" default-lazy="false">
  <class name="testDB.Grade" table="grade">
-   <composite-id>
-            <key-property name="Mssv" column="studentId" />
-            <key-property name="classId" column="classId" />
-            
-        </composite-id>
+   <composite-id name="idKey" class="testDB.svClassroomId">
+        <key-many-to-one name="classId" class = "testDB.Classroom"  column ="classId" />
+        <key-many-to-one name="Mssv" class="testDB.SV" column ="studentId" />
+    </composite-id>
   <property generated="never" lazy="false" name="midterm" type="float">
    <column name="midterm"/>
   </property>
@@ -23,11 +22,6 @@
   </property>
   <property generated="never" index="Id" lazy="false" length="11"
    name="Id" not-null="true" type="java.lang.Integer" unique="true"/>
-  <many-to-one class="testDB.SV" fetch="select" name="Mssv">
-   <column name="subjectId" not-null="true"/>
-  </many-to-one>
-  <many-to-one class="testDB.Classroom" fetch="select" name="classId">
-   <column name="classId" not-null="true"/>
-  </many-to-one>
+ 
  </class>
 </hibernate-mapping>

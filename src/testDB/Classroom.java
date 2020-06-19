@@ -14,7 +14,7 @@ public   Set <SV>DSSV= new HashSet<SV>(0);
 private static final char  DEFAULT_QUOTE = '\"';
 private static final char DEFAULT_SEPERATOR = ',';
 Set<Schedule>ScheduleList = new HashSet<Schedule>(0);
-//private Set<Grade>GradeList = new HashSet<Grade>(0);
+private Set<Grade>GradeList = new HashSet<Grade>(0);
 
 public Classroom()
 {
@@ -53,9 +53,17 @@ public void setScheduleList(Set<Schedule>list)
 public Classroom(String name, Set<SV> dssv)
 
 {
+	try {
+	if(DSSV==null)
+		DSSV = new HashSet<SV>();
 classId = name;
 for(SV sv:dssv)
 	DSSV.add(sv);
+	}
+	catch(NullPointerException e)
+	{
+		e.printStackTrace();
+	}
 //GradeList = gp;
 }
 public void addSV(SV sv)
@@ -624,5 +632,11 @@ public static void main(String args[])throws IOException
 public void setGradeList(Set<Grade> GradeList) {
 	this.GradeList = GradeList;
 }*/
+public Set<Grade> getGradeList() {
+	return GradeList;
+}
+public void setGradeList(Set<Grade> gradeList) {
+	GradeList = gradeList;
+}
 }
 

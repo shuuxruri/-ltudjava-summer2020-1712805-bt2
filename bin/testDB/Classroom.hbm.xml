@@ -23,6 +23,11 @@
    </key>
    <one-to-many class="testDB.Schedule"/>
   </set>
- 
+  <set name="GradeList" table="grade" lazy="false" access="field" fetch="select" cascade="all">
+        <key>
+            <column name="classId" not-null="true" />
+        </key>
+        <one-to-many class = "testDB.Grade"/>
+    </set>
  </class>
 </hibernate-mapping>
