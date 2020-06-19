@@ -690,13 +690,41 @@ public void c9()
 	updateGrade(gp);
 	
 }
+public Grade c10(String mssv,String Cls)
+{
+	Grade Class = null;
+	Session session = HibernateUtil.getSessionFactory()
+			.openSession();
+	SV sv = getSVInfo(mssv);
+	Classroom cl = getClassInfo(Cls);
+	svClassroomId key = new svClassroomId(sv,cl);
+			try {
+			String hql= "";
+			hql +="from Grade grade ";
+			hql += " where grade.idKey=:name";
+			TypedQuery<Grade> query = session.createQuery(hql);
+			query.setParameter("name", key);
+			Class = query.getSingleResult();
+			} catch (HibernateException ex) {
+			System.err.println(ex);
+			}catch(NoResultException nores)
+			{
+				
+			}
+			finally {
+			session.close();
+			}
+	return Class;
+}
 public static void main(String args[])
 {
 	//System.out.println(2);
 	
 	
 SVcheck temp = new SVcheck();
-temp.c9();
+//temp.c9();
+Grade gp = temp.c10("1742005", "18HCB–CTT001");
+gp.output();
 //SV newSv1 = new SV(1,"Gintoki","yorozura","Mayonise", "",null);
 
 //Set<SV> listsv = new HashSet<SV>();
