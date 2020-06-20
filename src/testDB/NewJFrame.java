@@ -1,5 +1,9 @@
 package testDB;
 
+import java.awt.event.ActionEvent;
+
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -18,6 +22,10 @@ public class NewJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
+	SVcheck temp;
+	private String user;
+	private String pwd;
+	
     public NewJFrame() {
         initComponents();
     }
@@ -30,18 +38,90 @@ public class NewJFrame extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
-    	
+
+        addSVScreenpage = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        watchSVListpage = new javax.swing.JPanel();
         mainpage = new javax.swing.JPanel();
         logout = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        changePassword = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
         loginpage = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPasswordField2 = new javax.swing.JPasswordField();
-        jTextField1 = new javax.swing.JTextField();
+        password = new javax.swing.JPasswordField();
+        username = new javax.swing.JTextField();
         login = new javax.swing.JButton();
-       
+        changePasswordpage = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        oldPassword = new javax.swing.JTextField();
+        newPassword = new javax.swing.JTextField();
+        repeatNewPassword = new javax.swing.JTextField();
+        confirmChange = new javax.swing.JButton();
+        comeback = new javax.swing.JButton();
+
+        javax.swing.GroupLayout addSVScreenpageLayout = new javax.swing.GroupLayout(addSVScreenpage);
+        addSVScreenpage.setLayout(addSVScreenpageLayout);
+        addSVScreenpageLayout.setHorizontalGroup(
+            addSVScreenpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 394, Short.MAX_VALUE)
+        );
+        addSVScreenpageLayout.setVerticalGroup(
+            addSVScreenpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout watchSVListpageLayout = new javax.swing.GroupLayout(watchSVListpage);
+        watchSVListpage.setLayout(watchSVListpageLayout);
+        watchSVListpageLayout.setHorizontalGroup(
+            watchSVListpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 394, Short.MAX_VALUE)
+        );
+        watchSVListpageLayout.setVerticalGroup(
+            watchSVListpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         logout.setText("Đăng xuất");
@@ -51,48 +131,115 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Chơi trội");
+        jButton4.setText("Thêm sinh viên");
 
-        jButton3.setText("Chơi ngu");
+        jButton3.setText("Xem thời khóa biểu");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
+        jButton1.setText("Thống kê");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Xem danh sách lớp");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        changePassword.setText("Đổi mật khẩu");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Trang chủ");
+
+        jLabel2.setText("chào");
+
+        jButton6.setText("Tạo phúc khảo");
+        
+        changePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	changePasswordActionPerformed(evt);
+            }
+        });
+        comeback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	comebackMouseClicked(evt);
+            }
+        });
+        confirmChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	confirmChangeMouseClicked(evt);
+            }
+        });
         javax.swing.GroupLayout mainpageLayout = new javax.swing.GroupLayout(mainpage);
         mainpage.setLayout(mainpageLayout);
         mainpageLayout.setHorizontalGroup(
             mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainpageLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
                 .addComponent(logout))
             .addGroup(mainpageLayout.createSequentialGroup()
-                .addGap(145, 145, 145)
-                .addGroup(mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addGroup(mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainpageLayout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addGroup(mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(changePassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(mainpageLayout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         mainpageLayout.setVerticalGroup(
             mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainpageLayout.createSequentialGroup()
-                .addComponent(logout)
-                .addGap(85, 85, 85)
+                .addGroup(mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(logout)
+                    .addComponent(jLabel2))
+                .addGap(13, 13, 13)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addGap(5, 5, 5)
+                .addComponent(jButton6)
+                .addGap(18, 18, 18)
+                .addComponent(changePassword)
+                .addGap(25, 25, 25))
         );
 
         jLabel3.setText("Tài khoản");
 
         jLabel4.setText("Mật khẩu");
 
-        jPasswordField2.addActionListener(new java.awt.event.ActionListener() {
+        password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField2ActionPerformed(evt);
+                passwordActionPerformed(evt);
             }
         });
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                usernameActionPerformed(evt);
             }
         });
 
@@ -114,73 +261,220 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(37, 37, 37)
                 .addGroup(loginpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPasswordField2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                    .addComponent(password)
+                    .addComponent(username, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
                     .addGroup(loginpageLayout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(login)))
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         loginpageLayout.setVerticalGroup(
             loginpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginpageLayout.createSequentialGroup()
                 .addGap(80, 80, 80)
-                .addGroup(loginpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(loginpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(loginpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(login)
-                .addContainerGap(89, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
+        );
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Mật khẩu cũ");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Nhập mật khẩu mới");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Nhập lại mật khẩu mới");
+
+        confirmChange.setText("Đồng ý");
+
+        comeback.setText("Quay lại");
+
+        javax.swing.GroupLayout changePasswordpageLayout = new javax.swing.GroupLayout(changePasswordpage);
+        changePasswordpage.setLayout(changePasswordpageLayout);
+        changePasswordpageLayout.setHorizontalGroup(
+            changePasswordpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(changePasswordpageLayout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(changePasswordpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(changePasswordpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(24, 24, 24)
+                .addGroup(changePasswordpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(oldPassword)
+                    .addComponent(newPassword)
+                    .addComponent(repeatNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, changePasswordpageLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(confirmChange)
+                .addGap(97, 97, 97))
+            .addGroup(changePasswordpageLayout.createSequentialGroup()
+                .addComponent(comeback)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        changePasswordpageLayout.setVerticalGroup(
+            changePasswordpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(changePasswordpageLayout.createSequentialGroup()
+                .addComponent(comeback)
+                .addGap(51, 51, 51)
+                .addGroup(changePasswordpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(oldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(changePasswordpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(newPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(changePasswordpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(repeatNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(confirmChange)
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 424, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addGap(0, 10, Short.MAX_VALUE)
-                    .addComponent(loginpage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(mainpage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(loginpage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(changePasswordpage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 317, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(loginpage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(mainpage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(loginpage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(changePasswordpage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainpage.setVisible(false);
+        watchSVListpage.setVisible(false);
+        changePasswordpage.setVisible(false);
+        jPanel1.setVisible(false);
+        addSVScreenpage.setVisible(false);
         pack();
+        
     }// </editor-fold>                        
 
-    private void jPasswordField2ActionPerformed(java.awt.event.ActionEvent evt) {                                                
+    protected void jButton2ActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void jButton1ActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void jButton3ActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void passwordActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
+    	pwd = String.valueOf(password.getPassword());
     }                                               
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    private void usernameActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
+    	
+    	user = username.getText();
     }                                           
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
+    	//user = null;
+    	//pwd = null;
         mainpage.setVisible(false);
         loginpage.setVisible(true);
     }                                      
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {                                      
         // TODO add your handling code here:
-        loginpage.setVisible(false);
-          mainpage.setVisible(true);
+    	
+    		
+			
+	    	if(temp.checkAccount(user, pwd))
+	    	{ loginpage.setVisible(false);
+	          mainpage.setVisible(true);
+	    	}
+	    	
+	    	else
+	    	{
+	    		
+	    		JOptionPane.showMessageDialog(null,"Sai tên đăng nhập hoặc mật khẩu");;
+	    	}
+		
+    	
+    	
         
     }                                     
+    
+    private void comebackMouseClicked(ActionEvent evt) {                                      
+        // TODO add your handling code here:
+    	mainpage.setVisible(true);
+    	changePasswordpage.setVisible(false);
+    }                                     
 
+    private void confirmChangeMouseClicked(ActionEvent evt) {                                           
+        // TODO add your handling code here:
+    	String oldPass = oldPassword.getText();
+    	String newPass = newPassword.getText();
+    	String repeat = repeatNewPassword.getText();
+    	System.out.println("Old password here "+oldPass);
+    	if(oldPass.compareTo(pwd)==0)
+    		{
+    		if(newPass.compareTo(repeat)==0 && newPass!=null)
+    			{
+    			temp.changeAccountPassword(new Account(user,newPass));
+    			JOptionPane.showMessageDialog(null,"Đổi mật khẩu thành công");
+    			oldPassword.setText("");
+    			newPassword.setText(null);
+    			repeatNewPassword.setText(null);
+    			changePasswordpage.setVisible(false);
+    			mainpage.setVisible(true);
+    			}
+    		else
+			{
+    			JOptionPane.showMessageDialog(null,"Không trùng mật khẩu");
+			}
+    		}
+    	else
+    		{
+    		JOptionPane.showMessageDialog(null,"Mật khẩu cũ sai");
+    	}
+    		
+    	
+    }                                          
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // TODO add your handling code here:
+    }    
+    private void changePasswordActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+    	mainpage.setVisible(false);
+    	changePasswordpage.setVisible(true);
+    }
+   
     /**
      * @param args the command line arguments
      */
@@ -216,16 +510,52 @@ public class NewJFrame extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify                     
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPasswordField jPasswordField2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JButton login;
-    private javax.swing.JPanel loginpage;
-    private javax.swing.JButton logout;
-    private javax.swing.JPanel mainpage;
+    public String getUser() {
+		return user;
+	}
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+	public String getPsw() {
+		return pwd;
+	}
+
+	public void setPsw(String pwd) {
+		this.pwd = pwd;
+	}
+
+	// Variables declaration - do not modify                     
+	 	private javax.swing.JPanel addSVScreenpage;
+	    private javax.swing.JButton changePassword;
+	    private javax.swing.JPanel changePasswordpage;
+	    private javax.swing.JButton comeback;
+	    private javax.swing.JButton confirmChange;
+	    private javax.swing.JButton jButton1;
+	    private javax.swing.JButton jButton2;
+	    private javax.swing.JButton jButton3;
+	    private javax.swing.JButton jButton4;
+	    private javax.swing.JButton jButton6;
+	    private javax.swing.JLabel jLabel1;
+	    private javax.swing.JLabel jLabel2;
+	    private javax.swing.JLabel jLabel3;
+	    private javax.swing.JLabel jLabel4;
+	    private javax.swing.JLabel jLabel5;
+	    private javax.swing.JLabel jLabel6;
+	    private javax.swing.JLabel jLabel7;
+	    private javax.swing.JPanel jPanel1;
+	    private javax.swing.JScrollPane jScrollPane1;
+	    private javax.swing.JTable jTable1;
+	    private javax.swing.JButton login;
+	    private javax.swing.JPanel loginpage;
+	    private javax.swing.JButton logout;
+	    private javax.swing.JPanel mainpage;
+	    private javax.swing.JTextField newPassword;
+	    private javax.swing.JTextField oldPassword;
+	    private javax.swing.JPasswordField password;
+	    private javax.swing.JTextField repeatNewPassword;
+	    private javax.swing.JTextField username;
+	    private javax.swing.JPanel watchSVListpage;
     // End of variables declaration                   
 }

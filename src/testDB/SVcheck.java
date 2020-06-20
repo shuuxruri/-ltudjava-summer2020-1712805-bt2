@@ -202,7 +202,7 @@ session.close();
 System.out.println("done");
 return true; }
 
-public void c4(String path)
+public static void c4(String path)
 {
 	Classroom cl = null;
 	Session session = HibernateUtil.getSessionFactory().openSession();
@@ -260,7 +260,7 @@ public void c4(String path)
 		}
 	
 }
-public Set<SV>getSVList(String ClassId)
+public static Set<SV>getSVList(String ClassId)
 {
 	Session session = HibernateUtil.getSessionFactory()
 			.openSession();
@@ -437,7 +437,7 @@ public Classroom readImportC1(String path)
 		
 	
 }
-public Classroom readImportC3(String path)
+public static Classroom readImportC3(String path)
 {
 	Session session = HibernateUtil.getSessionFactory()
 			.openSession();
@@ -605,9 +605,103 @@ Set<Grade> list = cl.getGradeList();
 for(Grade ls: list)
 	ls.output();
 }
-
-
-
+public static Account getAccountInfo(String username)
+{
+	Account acc = null;
+	Session session = HibernateUtil.getSessionFactory()
+			.openSession();
+	
+			try {
+			String hql= " select acc ";
+			hql +="from Account acc ";
+			hql += " where acc.username=:user";
+			TypedQuery<Account> query = session.createQuery(hql);
+			query.setParameter("user", username);
+			acc = query.getSingleResult();
+			} catch (HibernateException ex) {
+			System.err.println(ex);
+			return null;
+			}catch(NoResultException nores)
+			{
+				
+			}finally {
+				
+			session.close();
+			
+			}
+	return acc;
+}
+public static boolean addAccount(Account acc) {
+	Session session = HibernateUtil.getSessionFactory().openSession();
+	if (getAccountInfo(acc.getUsername())!=null) {
+		System.out.println("Tên đăng nhập đã được dùng");
+	return false; 
+	}
+	Transaction transaction = null;
+	try {
+	transaction = session.beginTransaction();
+	session.saveOrUpdate(acc);
+	transaction.commit();
+	} catch (HibernateException ex) {
+	//Log the exception
+	transaction.rollback();
+	System.out.println("done");
+	System.err.println(ex);
+	} finally {
+	session.close();
+	}
+	return true; 
+}
+public static boolean changeAccountPassword(Account acc) {
+	Session session = HibernateUtil.getSessionFactory().openSession();
+	
+	Transaction transaction = null;
+	try {
+	transaction = session.beginTransaction();
+	session.saveOrUpdate(acc);
+	transaction.commit();
+	} catch (HibernateException ex) {
+	//Log the exception
+	transaction.rollback();
+	System.out.println("done");
+	System.err.println(ex);
+	}
+	catch(Exception e)
+	{
+		e.printStackTrace();
+		transaction.rollback();
+	}
+	finally {
+	session.close();
+	}
+	
+	return true; 
+}
+public static boolean checkAccount(String username, String password)
+{
+	if(username ==null || password == null)
+		return false;
+	Account temp = getAccountInfo(username);
+	if(temp==null)
+		{
+		if(username.compareTo("giaovu")==0 && password.compareTo("giaovu")==0)
+			return true;
+		SV sv = getSVInfo(username);
+		if(sv == null)
+			return false;
+		else if(username.compareTo(password)==0)
+		{
+			System.out.println(username);
+			System.out.println(password);
+			return true;
+		}
+		
+		}
+	else if(temp.getPassword().compareTo(password)==0)
+		return true;
+	return false;
+		
+}
 
 public static void fakemain()
 {
@@ -722,9 +816,12 @@ public static void main(String args[])
 	
 	
 SVcheck temp = new SVcheck();
+
+
+//temp.checkAccount("giaovu", "giaovu");
 //temp.c9();
-Grade gp = temp.c10("1742005", "18HCB–CTT001");
-gp.output();
+//Grade gp = temp.c10("1742005", "18HCB–CTT001");
+//gp.output();
 //SV newSv1 = new SV(1,"Gintoki","yorozura","Mayonise", "",null);
 
 //Set<SV> listsv = new HashSet<SV>();
