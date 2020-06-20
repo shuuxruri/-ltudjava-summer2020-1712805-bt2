@@ -2,8 +2,11 @@ package testDB;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -73,6 +76,9 @@ public class NewJFrame extends javax.swing.JFrame {
         repeatNewPassword = new javax.swing.JTextField();
         confirmChange = new javax.swing.JButton();
         comeback = new javax.swing.JButton();
+        comeback1 = new javax.swing.JButton();
+        comeback2 = new javax.swing.JButton();
+        comeback3 = new javax.swing.JButton();
         searchClasspage = new javax.swing.JPanel();
         searchClassSchedule = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -103,7 +109,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel4.setText("Mật khẩu");
 
-        password.addActionListener(new java.awt.event.ActionListener() {
+       /* password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordActionPerformed(evt);
             }
@@ -113,7 +119,7 @@ public class NewJFrame extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameActionPerformed(evt);
             }
-        });
+        });*/
 
         login.setText("Đăng nhập");
         login.addActionListener(new java.awt.event.ActionListener() {
@@ -287,10 +293,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 changePassword1ActionPerformed(evt);
             }
 
-			private void changePassword1ActionPerformed(ActionEvent evt) {
-				// TODO Auto-generated method stub
-				
-			}
+			
         });
 
         jButton8.setText("Xem bảng điểm");
@@ -391,9 +394,14 @@ public class NewJFrame extends javax.swing.JFrame {
         comeback.setText("Quay lại");
         comeback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	comebackMouseClicked(evt);
+                comebackActionPerformed(evt);
             }
         });
+       /* comeback.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comebackMouseClicked(evt);
+            }
+        });*/
 
         javax.swing.GroupLayout changePasswordpageLayout = new javax.swing.GroupLayout(changePasswordpage);
         changePasswordpage.setLayout(changePasswordpageLayout);
@@ -450,69 +458,87 @@ public class NewJFrame extends javax.swing.JFrame {
 
         watchSchedule.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                
             },
             new String [] {
                 "STT", "Mã môn", "Tên môn", "Phòng học"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
+            
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                true, true, true, true
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
+           
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null},
+                    
+                },
+                new String [] {
+                    "STT", "MSSV", "Họ và tên", "Giới tính", "CMND"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
         jScrollPane2.setViewportView(watchSchedule);
 
-        classField1.addActionListener(new java.awt.event.ActionListener() {
+        /*classField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 classField1ActionPerformed(evt);
             }
-        });
+        });*/
 
         jLabel10.setText("Lớp");
 
+        comeback1.setText("Quay lại");
+        comeback1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comeback1ActionPerformed(evt);
+            }
+        });
         javax.swing.GroupLayout searchClasspageLayout = new javax.swing.GroupLayout(searchClasspage);
         searchClasspage.setLayout(searchClasspageLayout);
         searchClasspageLayout.setHorizontalGroup(
             searchClasspageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchClasspageLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addGroup(searchClasspageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(searchClasspageLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(classField1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(searchClassSchedule))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(37, 37, 37)
+                        .addGroup(searchClasspageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(searchClasspageLayout.createSequentialGroup()
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(classField1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(searchClass))))
+                    .addComponent(comeback1))
                 .addGap(0, 23, Short.MAX_VALUE))
         );
         searchClasspageLayout.setVerticalGroup(
             searchClasspageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searchClasspageLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addComponent(comeback1)
+                .addGap(27, 27, 27)
                 .addGroup(searchClasspageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchClassSchedule)
+                    .addComponent(searchClass)
                     .addComponent(classField1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
+                .addGap(67, 67, 67)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         searchClass.setText("Tìm kiếm");
@@ -522,63 +548,60 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "STT", "MSSV", "Họ và tên", "Giới tính", "CMND"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+      
         jScrollPane3.setViewportView(jTable2);
 
-        classField2.addActionListener(new java.awt.event.ActionListener() {
+        /*classField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 classField2ActionPerformed(evt);
             }
-        });
+        });*/
 
         jLabel11.setText("Lớp");
+
+        comeback3.setText("Quay lại");
+       /* comeback3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comebackMouseClicked(evt);
+            }
+        });*/
+        comeback3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comeback3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout SchedulepageLayout = new javax.swing.GroupLayout(Schedulepage);
         Schedulepage.setLayout(SchedulepageLayout);
         SchedulepageLayout.setHorizontalGroup(
             SchedulepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SchedulepageLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addGroup(SchedulepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(SchedulepageLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(classField2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(59, 59, 59)
-                        .addComponent(searchClass))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(27, 27, 27)
+                        .addGroup(SchedulepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(SchedulepageLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(33, 33, 33)
+                                .addComponent(classField2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(59, 59, 59)
+                                .addComponent(searchClassSchedule))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(comeback3))
                 .addGap(0, 23, Short.MAX_VALUE))
         );
         SchedulepageLayout.setVerticalGroup(
             SchedulepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SchedulepageLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addComponent(comeback3)
+                .addGap(27, 27, 27)
                 .addGroup(SchedulepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(searchClass)
+                    .addComponent(searchClassSchedule)
                     .addComponent(classField2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(66, 66, 66))
         );
 
@@ -590,11 +613,7 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jLabel15.setText("Lớp");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
+      
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -607,6 +626,18 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
+        comeback2.setText("Quay lại");
+        /*comeback2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comeback2MouseClicked(evt);
+            }
+        });*/
+        comeback2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comeback2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout addSVpageLayout = new javax.swing.GroupLayout(addSVpage);
         addSVpage.setLayout(addSVpageLayout);
         addSVpageLayout.setHorizontalGroup(
@@ -616,27 +647,32 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addComponent(addSVBtn)
                 .addGap(185, 185, 185))
             .addGroup(addSVpageLayout.createSequentialGroup()
-                .addGap(77, 77, 77)
                 .addGroup(addSVpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15))
+                    .addGroup(addSVpageLayout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addGroup(addSVpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel15)))
+                    .addComponent(comeback2))
                 .addGap(64, 64, 64)
                 .addGroup(addSVpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(addSVpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jTextField1)
-                        .addComponent(jTextField2)
-                        .addComponent(jTextField3)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)))
+                    .addComponent(jTextField1)
+                    .addComponent(jTextField2)
+                    .addComponent(jTextField3)
+                    .addComponent(jTextField4))
                 .addContainerGap(135, Short.MAX_VALUE))
         );
         addSVpageLayout.setVerticalGroup(
             addSVpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(addSVpageLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(addSVpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addSVpageLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comeback2))
                 .addGap(18, 18, 18)
                 .addGroup(addSVpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -750,22 +786,47 @@ public class NewJFrame extends javax.swing.JFrame {
         
     }// </editor-fold>                        
 
-    protected void jButton2ActionPerformed(ActionEvent evt) {
+    protected void changePassword1ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	protected void jButton1ActionPerformed(ActionEvent evt) {
+	protected void comebackActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO Auto-generated method stub
+		changePasswordpage.setVisible(false);
+		mainpage.setVisible(true);
+		
+	}
+	protected void comeback1ActionPerformed(java.awt.event.ActionEvent evt) {
+		// TODO Auto-generated method stub
+		searchClasspage.setVisible(false);
+		mainpage.setVisible(true);
+		
+	}
+	protected void comeback2ActionPerformed(java.awt.event.ActionEvent evt) {
+		// TODO Auto-generated method stub
+		addSVpage.setVisible(false);
+		mainpage.setVisible(true);
+		
+	}
+	protected void comeback3ActionPerformed(java.awt.event.ActionEvent evt) {
+		// TODO Auto-generated method stub
+		Schedulepage.setVisible(false);
+		mainpage.setVisible(true);
+		
+	}
+	protected void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	  mainpage.setVisible(false);
+    	  searchClasspage.setVisible(true);
 		
 	}
 
-	protected void jButton3ActionPerformed(ActionEvent evt) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
-	private void passwordActionPerformed(java.awt.event.ActionEvent evt) {                                                
+	
+
+	/*private void passwordActionPerformed(java.awt.event.ActionEvent evt) {                                                
         // TODO add your handling code here:
     	pwd = String.valueOf(password.getPassword());
     }                                               
@@ -774,7 +835,8 @@ public class NewJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     	
     	user = username.getText();
-    }                                           
+    	//user = username.nameField.getText();
+    }      */                                     
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {                                       
         // TODO add your handling code here:
@@ -786,8 +848,12 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {                                      
         // TODO add your handling code here:
+    	String st = username.getText();
+    	user = username.getText();
+    	pwd = String.valueOf(password.getPassword());
     	
-    		
+    	System.out.println("st is: "+user);
+    	System.out.println("st is: "+pwd);
 			
 	    	if(temp.checkAccount(user, pwd))
 	    	{ loginpage.setVisible(false);
@@ -806,21 +872,24 @@ public class NewJFrame extends javax.swing.JFrame {
     } 
     private void ScheduleWatchActionPerformed(java.awt.event.ActionEvent evt) {                                              
         // TODO add your handling code here:
+    	
+    	mainpage.setVisible(false);
+    	Schedulepage.setVisible(true);
+    	
     }                                             
 
     private void staticsticActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
+    	//mainpage.setVisible(false);
+    	//Schedulepage.setVisible(true);
+    	JOptionPane.showMessageDialog(null,"Chức năng đang bảo trì");
     }                                          
 
                             
     
-    private void comebackMouseClicked(ActionEvent evt) {                                      
-        // TODO add your handling code here:
-    	mainpage.setVisible(true);
-    	changePasswordpage.setVisible(false);
-    }                                     
+                            
 
-    private void confirmChangeMouseClicked(ActionEvent evt) {                                           
+    private void confirmChangeMouseClicked(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
     	String oldPass = oldPassword.getText();
     	String newPass = newPassword.getText();
@@ -850,9 +919,11 @@ public class NewJFrame extends javax.swing.JFrame {
     		
     	
     }                                          
-
+                                   
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+    	JOptionPane.showMessageDialog(null,"Chức năng đang bảo trì");
+    	
     }    
     private void changePasswordActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
@@ -861,38 +932,93 @@ public class NewJFrame extends javax.swing.JFrame {
     }
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+    	JOptionPane.showMessageDialog(null,"Chức năng đang bảo trì");
     }                                        
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+    	JOptionPane.showMessageDialog(null,"Chức năng đang bảo trì");
     }                                        
 
-    private void classField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    /*private void classField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-    }                                           
+    }   */                                        
 
     private void searchClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         // TODO add your handling code here:
+    	Classroom cl = temp.getClassInfo( classField2.getText());
+     	Set<Schedule> sclist = cl.getScheduleList();
+     	//JTable table = new JTable(new DefaultTableModel(new Object[]{"Column1", "Column2"}));
+     	DefaultTableModel tbl = (DefaultTableModel) watchSchedule.getModel();
+     	
+     	int count = 0;
+     	for(Schedule sc:sclist)
+     	{	
+     		
+     		  tbl.addRow(new Object[]{sc.getId(), sc.getSubjectId().getsubjectId(), sc.getSubjectId().getName(), 
+     				 sc.getRoom()});
+     		
+     		if(count>=5 )
+     			break;
+     	
+     		count++;
+     	} 
+    	
     }                                                   
 
     private void searchClassActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
+    	
+     	Classroom cl = temp.getClassInfo( classField1.getText());
+     	Set<SV>dssv = cl.getDSSV();
+     	//JTable table = new JTable(new DefaultTableModel(new Object[]{"Column1", "Column2"}));
+     	DefaultTableModel tbl = (DefaultTableModel) jTable2.getModel();
+     	
+     	int count = 0;
+     	for(SV sv:dssv)
+     	{	
+     		
+     		  tbl.addRow(new Object[]{sv.getId(), sv.getMssv(), sv.getName(), 
+     				 sv.getGender(),sv.getCMND()});
+     		
+     		if(count>=5 )
+     			break;
+     	
+     		count++;
+     	}
     }                                           
 
-    private void classField2ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+  /*  private void classField2ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-    }                                           
+    }   */                                        
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        // TODO add your handling code here:
-    }                                           
+                                          
 
     private void addSVBtnActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+    	String mssv = jTextField1.getText();
+    	String name = jTextField2.getText();
+    	String CMND = jTextField3.getText();
+    	
+    	Classroom cl = temp.getClassInfo(jTextField4.getText());
+    	if(cl ==null)
+    		{
+    			JOptionPane.showMessageDialog(null, "Lớp không tồn tại");
+    			return;
+    		}
+    		
+    	
+    	SV sv = new SV(mssv,name,null,CMND);
+    	sv.addClassroom(cl);
+    	temp.addSV(sv);
+    	JOptionPane.showMessageDialog(null, "Thêm sinh viên thành công");
+    	
     }                                        
 
     private void addSVActionPerformed(java.awt.event.ActionEvent evt) {                                      
         // TODO add your handling code here:
+    	mainpage.setVisible(false);
+    	addSVpage.setVisible(true);
     }                                     
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -962,6 +1088,9 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField classField1;
     private javax.swing.JTextField classField2;
     private javax.swing.JButton comeback;
+    private javax.swing.JButton comeback1;
+    private javax.swing.JButton comeback2;
+    private javax.swing.JButton comeback3;
     private javax.swing.JButton confirmChange;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;

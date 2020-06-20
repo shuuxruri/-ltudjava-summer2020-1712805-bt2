@@ -49,7 +49,20 @@ public void setScheduleList(Set<Schedule>list)
 {
 	ScheduleList = list;
 }
+public Classroom(String name)
 
+{
+	try {
+	if(DSSV==null)
+		DSSV = new HashSet<SV>();
+classId = name;
+DSSV = null;
+	}
+	catch(NullPointerException e)
+	{
+		e.printStackTrace();
+	}
+}
 public Classroom(String name, Set<SV> dssv)
 
 {
@@ -57,8 +70,11 @@ public Classroom(String name, Set<SV> dssv)
 	if(DSSV==null)
 		DSSV = new HashSet<SV>();
 classId = name;
-for(SV sv:dssv)
+if(dssv!=null)
+{
+	for(SV sv:dssv)
 	DSSV.add(sv);
+}
 	}
 	catch(NullPointerException e)
 	{

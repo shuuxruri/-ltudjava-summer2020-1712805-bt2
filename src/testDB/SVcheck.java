@@ -104,8 +104,7 @@ return sv;
 }
 public static boolean addSV(SV sv) {
 Session session = HibernateUtil.getSessionFactory().openSession();
-if (getSVInfo(sv.getMssv())!=null) {
-return false; }
+
 Transaction transaction = null;
 try {
 transaction = session.beginTransaction();
@@ -822,8 +821,11 @@ SVcheck temp = new SVcheck();
 //temp.c9();
 //Grade gp = temp.c10("1742005", "18HCB–CTT001");
 //gp.output();
-//SV newSv1 = new SV(1,"Gintoki","yorozura","Mayonise", "",null);
-
+SV newSv1 = new SV("1712807","ginko","Mayonise", "",null);
+Classroom cl = new Classroom("17CTT9",null);
+newSv1.addClassroom(cl);
+//cl.addSV(newSv1);
+temp.addSV(newSv1);
 //Set<SV> listsv = new HashSet<SV>();
 //listsv.add(newSv);
 //listsv.add(newSv1);

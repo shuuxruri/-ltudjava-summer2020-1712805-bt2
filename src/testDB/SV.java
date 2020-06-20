@@ -12,7 +12,7 @@ public class SV implements Serializable {
 	private String CMND;
 	
 	private Set<Grade>Grades = new HashSet<Grade>(0);
-	Set<Classroom> classes = new HashSet<Classroom>();
+	Set<Classroom> classes = new HashSet<Classroom>(0);
 	public SV()
 	{
 		
@@ -56,13 +56,26 @@ public class SV implements Serializable {
 		Gender = gender;
 		CMND = cmnd;
 		//Picture = picture;
-		classes = null;
+		
 		Id = id;
 	}
+	public SV(String mssv,String name,String gender,String cmnd)
+	{
+		Mssv = mssv;
+		Name= name;
+		//Score = score;
+		Gender = gender;
+		CMND = cmnd;
+		//Picture = picture;
+		
+		//Id = id;
+	}
 	public void addClassroom(Classroom cl) {
+		if(classes ==null)
+			classes = new HashSet<Classroom>();
 		classes.add(cl);
 	}
-	public SV(String mssv,String name,float score,String gender,String cmnd,Set<Classroom>hp)
+	public SV(String mssv,String name,String gender,String cmnd,Set<Classroom>hp)
 	{
 		Mssv = mssv;
 		Name= name;
