@@ -2,8 +2,10 @@ package testDB;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.Set;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -29,7 +31,13 @@ public class NewJFrame extends javax.swing.JFrame {
 	SVcheck temp;
 	private String user;
 	private String pwd;
-	
+	public void getMainPage()
+	{
+		if(user.compareTo("giaovu")==0)
+			mainpage.setVisible(true);
+		else
+			mainpage2.setVisible(true);
+	}
     public NewJFrame() {
         initComponents();
     }
@@ -79,6 +87,8 @@ public class NewJFrame extends javax.swing.JFrame {
         comeback1 = new javax.swing.JButton();
         comeback2 = new javax.swing.JButton();
         comeback3 = new javax.swing.JButton();
+        comeback4 = new javax.swing.JButton();
+        comeback5 = new javax.swing.JButton();
         searchClasspage = new javax.swing.JPanel();
         searchClassSchedule = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -102,8 +112,331 @@ public class NewJFrame extends javax.swing.JFrame {
         jTextField4 = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         addSVBtn = new javax.swing.JButton();
-
+        importList = new javax.swing.JButton();
+        importpage = new javax.swing.JPanel();
+        chooseImport = new javax.swing.JComboBox<>();
+        confirmChoice = new javax.swing.JButton();
+        confirmFileChoice = new javax.swing.JButton();
+        filePath = new javax.swing.JFileChooser();
+        searchGradepage = new javax.swing.JPanel();
+        searchClassGrade = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        watchGrade = new javax.swing.JTable();
+        classField3 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        comeback5 = new javax.swing.JButton();
+        GradeWatch = new javax.swing.JButton();
+        SVPKpage = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        MssvField = new javax.swing.JTextField();
+        NameField = new javax.swing.JTextField();
+        subjectField = new javax.swing.JTextField();
+        pointField = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        pkBtn = new javax.swing.JButton();
+        comeback6 = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        wantedPointField = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        reason = new javax.swing.JTextField();
+        PKpage = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        comeback7 = new javax.swing.JButton();
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+
+                },
+                new String [] {
+                    "STT", "MSSV", "Họ và tên", "Môn học", "Cột điểm", "Điểm mong muốn", "Lý do", "Trạng thái"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+            jScrollPane5.setViewportView(jTable3);
+
+            comeback7.setText("Quay lại");
+            comeback7.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    comeback7aActionPerformed(evt);
+                }
+            });
+
+            javax.swing.GroupLayout PKpageLayout = new javax.swing.GroupLayout(PKpage);
+            PKpage.setLayout(PKpageLayout);
+            PKpageLayout.setHorizontalGroup(
+                PKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PKpageLayout.createSequentialGroup()
+                    .addGroup(PKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PKpageLayout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comeback7))
+                    .addGap(0, 23, Short.MAX_VALUE))
+            );
+            PKpageLayout.setVerticalGroup(
+                PKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PKpageLayout.createSequentialGroup()
+                    .addComponent(comeback7)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+            );
+        
+        
+        jLabel18.setText("Tên");
+
+        jLabel19.setText("MSSV");
+
+        jLabel20.setText("Môn");
+
+        jLabel21.setText("Cột điểm phúc khảo");
+
+      
+        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel25.setText("Phúc khảo");
+
+        pkBtn.setText("Nộp");
+        pkBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pkBtnActionPerformed(evt);
+            }
+        });
+
+        comeback6.setText("Quay lại");
+      
+        comeback6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	
+                comeback6ActionPerformed(evt);
+            }
+        });
+
+        jLabel23.setText("Điểm mong muốn");
+
+        jLabel24.setText("Lý do");
+
+        javax.swing.GroupLayout SVPKpageLayout = new javax.swing.GroupLayout(SVPKpage);
+        SVPKpage.setLayout(SVPKpageLayout);
+        SVPKpageLayout.setHorizontalGroup(
+            SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SVPKpageLayout.createSequentialGroup()
+                .addGroup(SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SVPKpageLayout.createSequentialGroup()
+                        .addComponent(comeback6)
+                        .addGap(74, 74, 74))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SVPKpageLayout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel18)
+                            .addComponent(jLabel19)
+                            .addComponent(jLabel23)
+                            .addComponent(jLabel20)
+                            .addComponent(jLabel24))
+                        .addGap(41, 41, 41)))
+                .addGroup(SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(MssvField)
+                        .addComponent(NameField)
+                        .addComponent(subjectField)
+                        .addComponent(pointField)
+                        .addComponent(wantedPointField))
+                    .addComponent(reason, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(70, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SVPKpageLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(pkBtn)
+                .addGap(132, 132, 132))
+        );
+        SVPKpageLayout.setVerticalGroup(
+            SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SVPKpageLayout.createSequentialGroup()
+                .addGroup(SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SVPKpageLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel25, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comeback6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(MssvField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(subjectField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pointField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel23)
+                    .addComponent(wantedPointField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(SVPKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(SVPKpageLayout.createSequentialGroup()
+                        .addComponent(jLabel24)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(reason, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pkBtn)
+                .addContainerGap())
+        );
+        GradeWatch.setText("Xem điểm");
+        GradeWatch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GradeWatchActionPerformed(evt);
+            }});
+        
+        
+        searchClassGrade.setText("Tìm kiếm");
+        searchClassGrade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchClassGradeActionPerformed(evt);
+            }
+        });
+
+        watchGrade.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "STT", "MSSV", "Họ tên", "Điểm GK", "Điểm CK", "Điểm cộng", "Điểm tổng"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane4.setViewportView(watchGrade);
+
+       
+
+        jLabel17.setText("Lớp");
+
+        comeback5.setText("Quay lại");
+        
+        comeback5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comeback5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout searchGradepageLayout = new javax.swing.GroupLayout(searchGradepage);
+        searchGradepage.setLayout(searchGradepageLayout);
+        searchGradepageLayout.setHorizontalGroup(
+            searchGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchGradepageLayout.createSequentialGroup()
+                .addGroup(searchGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(searchGradepageLayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(classField3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(searchClassGrade))
+                    .addComponent(comeback5))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchGradepageLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        searchGradepageLayout.setVerticalGroup(
+            searchGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchGradepageLayout.createSequentialGroup()
+                .addComponent(comeback5)
+                .addGap(27, 27, 27)
+                .addGroup(searchGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(searchClassGrade)
+                    .addComponent(classField3, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
+        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        chooseImport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Danh sách lớp", "Bảng điểm", "Thời khóa biểu" }));
+
+        confirmChoice.setText("Chọn");
+        confirmChoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmChoiceActionPerformed(evt);
+            }
+        });
+        confirmFileChoice.setText("Xác nhận");
+        confirmFileChoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmFileChoiceActionPerformed(evt);
+            }
+        });
+        javax.swing.GroupLayout importpageLayout = new javax.swing.GroupLayout(importpage);
+        importpage.setLayout(importpageLayout);
+       
+        importpage.setLayout(importpageLayout);
+        importpageLayout.setHorizontalGroup(
+            importpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(importpageLayout.createSequentialGroup()
+                .addGroup(importpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(importpageLayout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                       
+                        
+                        .addComponent(confirmFileChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(importpageLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(chooseImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(confirmChoice)))
+                	.addComponent(comeback4)
+                .addContainerGap(277, Short.MAX_VALUE))
+        );
+        importpageLayout.setVerticalGroup(
+            importpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(importpageLayout.createSequentialGroup()
+            	.addComponent(comeback4)
+                .addGap(88, 88, 88)
+                .addGroup(importpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(chooseImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirmChoice))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                .addComponent(confirmFileChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
+        );
+
+       
+       
+        
+
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel3.setText("Tài khoản");
 
@@ -214,8 +547,13 @@ public class NewJFrame extends javax.swing.JFrame {
         jLabel1.setText("Trang chủ");
 
         jLabel2.setText("chào");
-
-        jButton6.setText("Tạo phúc khảo");
+        importList.setText("Import từ file");
+        importList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importListActionPerformed(evt);
+            }
+        });
+        jButton6.setText("Xem phúc khảo");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -236,8 +574,10 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addGroup(mainpageLayout.createSequentialGroup()
                         .addGap(146, 146, 146)
                         .addGroup(mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        	.addComponent(importList, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)	
                             .addComponent(ScheduleWatch, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GradeWatch, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(addSV, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(staticstic, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -253,13 +593,17 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(logout)
                     .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
+                .addGap(30, 30, 30)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ScheduleWatch)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GradeWatch)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(importList)
+            	.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addSV)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(staticstic)
@@ -268,6 +612,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(changePassword)
                 .addGap(37, 37, 37))
+            	
         );
 
         logout1.setText("Đăng xuất");
@@ -278,19 +623,11 @@ public class NewJFrame extends javax.swing.JFrame {
         });
 
         changePassword1.setText("Đổi mật khẩu");
-        changePassword1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                changePassword1MouseClicked(evt);
-            }
-
-			private void changePassword1MouseClicked(MouseEvent evt) {
-				// TODO Auto-generated method stub
-				
-			}
-        });
+       
         changePassword1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                changePassword1ActionPerformed(evt);
+            	mainpage2.setVisible(false);
+                changePasswordActionPerformed(evt);
             }
 
 			
@@ -637,7 +974,17 @@ public class NewJFrame extends javax.swing.JFrame {
                 comeback2ActionPerformed(evt);
             }
         });
-
+        comeback4.setText("Quay lại");
+        /*comeback2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comeback2MouseClicked(evt);
+            }
+        });*/
+        comeback4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comeback4aActionPerformed(evt);
+            }
+        });
         javax.swing.GroupLayout addSVpageLayout = new javax.swing.GroupLayout(addSVpage);
         addSVpage.setLayout(addSVpageLayout);
         addSVpageLayout.setHorizontalGroup(
@@ -734,7 +1081,24 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(addSVpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
-        );
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(importpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(searchGradepage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(SVPKpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(PKpage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        		);
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 364, Short.MAX_VALUE)
@@ -773,7 +1137,26 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(addSVpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(importpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            		.addGap(0, 0, Short.MAX_VALUE)
+            		.addComponent(searchGradepage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(SVPKpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(PKpage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
+        
 
         mainpage.setVisible(false);
         mainpage2.setVisible(false);
@@ -782,11 +1165,139 @@ public class NewJFrame extends javax.swing.JFrame {
         changePasswordpage.setVisible(false);
         //jPanel1.setVisible(false);
         addSVpage.setVisible(false);
+        filePath.setVisible(false);
+        importpage.setVisible(false);
+        searchGradepage.setVisible(false);
+        SVPKpage.setVisible(false);
         pack();
         
     }// </editor-fold>                        
 
-    protected void changePassword1ActionPerformed(java.awt.event.ActionEvent evt) {
+    protected void comeback7aActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	PKpage.setVisible(false);
+    	mainpage.setVisible(true);
+		
+	}
+	protected void pkBtnActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	try
+    	{
+    	String name = NameField.getText();
+    	String MSSV = MssvField.getText();
+    	String column = pointField.getText();
+    	String subject = subjectField.getText();
+    	String reasons = reason.getText();
+    	float wantedPoint = Float.valueOf(wantedPointField.getText());
+    	pk PK = new pk(MSSV,name,subject,column,wantedPoint,reasons);
+    	SVcheck.addPK(PK);
+    	JOptionPane.showMessageDialog(null,"Gửi đơn phúc khảo thành công");
+    	}catch(Exception e)
+    	{
+    		JOptionPane.showMessageDialog(null,"Đã xảy ra lỗi, vui lòng thử lại");
+    		e.printStackTrace();
+    	}
+		
+	}
+	protected void comeback6ActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	SVPKpage.setVisible(false);
+    	getMainPage();
+		
+	}
+	protected void GradeWatchActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	mainpage.setVisible(false);
+    	searchGradepage.setVisible(true);
+		
+	}
+	protected void searchClassGradeActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		Classroom cl = temp.getClassInfo( classField3.getText());
+     	Set<Grade> gplist = cl.getGradeList();
+     	//JTable table = new JTable(new DefaultTableModel(new Object[]{"Column1", "Column2"}));
+     	DefaultTableModel tbl = (DefaultTableModel) watchGrade.getModel();
+     	
+     	int count = 0;
+     	for(Grade gp:gplist)
+     	{	
+     		svClassroomId idKey = gp.getidKey(); 
+     		
+     		  tbl.addRow(new Object[]{gp.getId(), idKey.getMssv().getMssv(),
+     				  idKey.getMssv().getName(),gp.getMidterm(),gp.getFinalTerm()
+     				  ,gp.getOtherPoint(),gp.getTotal()});
+     		
+     		
+     	} 
+		
+	}
+	protected void comeback5ActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	searchGradepage.setVisible(false);
+    	getMainPage();
+	}
+	protected void comeback4aActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	importpage.setVisible(false);
+    	getMainPage();
+	}
+
+	protected void confirmFileChoiceActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	String choice = chooseImport.getSelectedItem().toString();
+    	String path ;
+    	StringBuffer tempPath= new StringBuffer(filePath.getSelectedFile().toString());
+    	path = tempPath.toString();
+    	
+    	//System.out.println( filePath.getSelectedFile().toString());
+    	try {
+    	if(tempPath!=null)
+    	{
+    	Classroom cl = new Classroom();
+    	for(int i = 0; i < tempPath.length(); i++)
+    	{	
+    		if(tempPath.charAt(i)=='\\')
+    			{
+    				tempPath.insert(i, '\\');
+    				i++;
+    			}
+    				
+    	}
+    	//path = tempPath.toString();
+    	//System.out.println(path);
+    	SVcheck.choiceMake(choice, path);
+    		}
+    	JOptionPane.showMessageDialog(null, "Import thành công");
+    	}
+    	catch(NullPointerException e)
+    	{
+    		JOptionPane.showMessageDialog(null, "Import thất bại");
+    		e.printStackTrace();
+    		
+    	}
+		
+	}
+
+	protected void confirmChoiceActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		filePath.setVisible(true);
+    	if (filePath.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+    		  System.out.println("getCurrentDirectory(): " + filePath.getCurrentDirectory());
+    		  System.out.println("getSelectedFile() : " + filePath.getSelectedFile());
+    		} else {
+    		  System.out.println("No Selection ");
+    		}
+		
+	}
+
+	protected void importListActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	mainpage.setVisible(false);
+    	importpage.setVisible(true);
+		
+	}
+
+	protected void changePassword1ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -794,25 +1305,25 @@ public class NewJFrame extends javax.swing.JFrame {
 	protected void comebackActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO Auto-generated method stub
 		changePasswordpage.setVisible(false);
-		mainpage.setVisible(true);
+		getMainPage();
 		
 	}
 	protected void comeback1ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO Auto-generated method stub
 		searchClasspage.setVisible(false);
-		mainpage.setVisible(true);
+		getMainPage();
 		
 	}
 	protected void comeback2ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO Auto-generated method stub
 		addSVpage.setVisible(false);
-		mainpage.setVisible(true);
+		getMainPage();
 		
 	}
 	protected void comeback3ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO Auto-generated method stub
 		Schedulepage.setVisible(false);
-		mainpage.setVisible(true);
+		getMainPage();
 		
 	}
 	protected void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -843,6 +1354,7 @@ public class NewJFrame extends javax.swing.JFrame {
     	//user = null;
     	//pwd = null;
         mainpage.setVisible(false);
+        mainpage2.setVisible(false);
         loginpage.setVisible(true);
     }                                      
 
@@ -857,7 +1369,7 @@ public class NewJFrame extends javax.swing.JFrame {
 			
 	    	if(temp.checkAccount(user, pwd))
 	    	{ loginpage.setVisible(false);
-	          mainpage.setVisible(true);
+	    	getMainPage();
 	    	}
 	    	
 	    	else
@@ -922,7 +1434,8 @@ public class NewJFrame extends javax.swing.JFrame {
                                    
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-    	JOptionPane.showMessageDialog(null,"Chức năng đang bảo trì");
+    	mainpage.setVisible(false);
+    	PKpage.setVisible(true);
     	
     }    
     private void changePasswordActionPerformed(java.awt.event.ActionEvent evt) {                                            
@@ -951,17 +1464,15 @@ public class NewJFrame extends javax.swing.JFrame {
      	//JTable table = new JTable(new DefaultTableModel(new Object[]{"Column1", "Column2"}));
      	DefaultTableModel tbl = (DefaultTableModel) watchSchedule.getModel();
      	
-     	int count = 0;
+     	
      	for(Schedule sc:sclist)
      	{	
      		
      		  tbl.addRow(new Object[]{sc.getId(), sc.getSubjectId().getsubjectId(), sc.getSubjectId().getName(), 
      				 sc.getRoom()});
      		
-     		if(count>=5 )
-     			break;
      	
-     		count++;
+     		
      	} 
     	
     }                                                   
@@ -974,17 +1485,16 @@ public class NewJFrame extends javax.swing.JFrame {
      	//JTable table = new JTable(new DefaultTableModel(new Object[]{"Column1", "Column2"}));
      	DefaultTableModel tbl = (DefaultTableModel) jTable2.getModel();
      	
-     	int count = 0;
+     	
      	for(SV sv:dssv)
      	{	
      		
      		  tbl.addRow(new Object[]{sv.getId(), sv.getMssv(), sv.getName(), 
      				 sv.getGender(),sv.getCMND()});
      		
-     		if(count>=5 )
-     			break;
+     		
      	
-     		count++;
+     		
      	}
     }                                           
 
@@ -1023,6 +1533,8 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+    	mainpage2.setVisible(false);
+    	SVPKpage.setVisible(true);
     }
    
     /**
@@ -1091,6 +1603,8 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JButton comeback1;
     private javax.swing.JButton comeback2;
     private javax.swing.JButton comeback3;
+    private javax.swing.JButton comeback4;
+    private javax.swing.JButton comeback5;
     private javax.swing.JButton confirmChange;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton5;
@@ -1132,9 +1646,44 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField repeatNewPassword;
     private javax.swing.JButton searchClass;
     private javax.swing.JButton searchClassSchedule;
+    private javax.swing.JButton searchGrade;
     private javax.swing.JPanel searchClasspage;
     private javax.swing.JButton staticstic;
     private javax.swing.JTextField username;
     private javax.swing.JTable watchSchedule;
+    private javax.swing.JComboBox<String> chooseImport;
+    private javax.swing.JButton confirmChoice;
+    private javax.swing.JButton confirmFileChoice;
+    private javax.swing.JFileChooser filePath;
+    private javax.swing.JButton importList;
+    private javax.swing.JButton GradeWatch;
+    private javax.swing.JPanel importpage;
+    private javax.swing.JTextField classField3;
+    
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JButton searchClassGrade;
+    private javax.swing.JPanel searchGradepage;
+    private javax.swing.JTable watchGrade;
+    private javax.swing.JTextField NameField;
+    private javax.swing.JPanel SVPKpage;
+    private javax.swing.JButton comeback6;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JTextField MssvField;
+    private javax.swing.JButton pkBtn;
+    private javax.swing.JTextField pointField;
+    private javax.swing.JTextField reason;
+    private javax.swing.JTextField subjectField;
+    private javax.swing.JTextField wantedPointField;
+    private javax.swing.JPanel PKpage;
+    private javax.swing.JButton comeback7;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTable jTable3;
     // End of variables declaration                   
 }

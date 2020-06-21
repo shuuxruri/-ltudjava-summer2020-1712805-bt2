@@ -11,6 +11,9 @@
   <property generated="never" lazy="false" name="room" type="java.lang.String">
    <column name="room"/>
   </property>
+  <property generated="never" lazy="false" name="stt" type="java.lang.Integer">
+   <column name="stt"/>
+  </property>
   <many-to-one cascade="save-update" class="testDB.Subject" fetch="join"
    lazy="false" name="subjectId" not-null="true" unique="true">
    <column name="subjectId" not-null="true"/>

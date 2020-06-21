@@ -109,6 +109,7 @@ public class Grade implements Serializable {
 		finalTerm = CK;
 		otherPoint = Other;
 		total = Sum;
+		Id = id;
 	}
 	public void output() {
 		SV sv = idKey.getMssv();

@@ -63,7 +63,7 @@ public class Subject implements Serializable{
 	public void addSchedule(Schedule sc) {
 		if(schedule ==null)
 			schedule = new HashSet<Schedule>();
-	this.schedule.add(sc);
+	schedule.add(sc);
 	}
 	public void subjectOutput()
 	{

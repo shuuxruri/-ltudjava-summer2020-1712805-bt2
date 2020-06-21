@@ -1,5 +1,6 @@
 package testDB;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -192,6 +193,7 @@ session.saveOrUpdate(classes);
 transaction.commit();
 } catch (HibernateException ex) {
 //Log the exception
+	ex.printStackTrace();
 transaction.rollback();
 
 System.err.println(ex);
@@ -200,7 +202,34 @@ session.close();
 }
 System.out.println("done");
 return true; }
+public static boolean updateClassroomGrade(Classroom classes) {
+Session session = null;
+session = HibernateUtil.getSessionFactory().openSession();
 
+//if (getClassInfo(classes.getName())!=null) {
+//return false; }
+Transaction transaction = null;
+
+
+
+try {
+
+transaction = session.beginTransaction();
+ 
+session.merge(classes);
+
+transaction.commit();
+} catch (HibernateException ex) {
+//Log the exception
+	ex.printStackTrace();
+transaction.rollback();
+
+System.err.println(ex);
+} finally {
+session.close();
+}
+System.out.println("done");
+return true; }
 public static void c4(String path)
 {
 	Classroom cl = null;
@@ -259,6 +288,7 @@ public static void c4(String path)
 		}
 	
 }
+
 public static Set<SV>getSVList(String ClassId)
 {
 	Session session = HibernateUtil.getSessionFactory()
@@ -328,7 +358,34 @@ public static Subject getSubjectInfo(String subjectId) {
 			}
 	return Sj;
 }
-
+public static List<Schedule> getScheduleInfoFromClass(String classId) {
+	List<Schedule> Sc = null;
+	Session session = HibernateUtil.getSessionFactory()
+			.openSession();
+			Classroom cl = session.get(Classroom.class,classId);
+			try {
+				/*String hql=" select sj ";
+				hql+= " from Subject sj left join fetch sj.schedule";
+				hql+= " where dm.subjectId=:subject";*/
+				
+				String hql="select distinct Schedule  ";
+				hql+= "From Classroom ";
+				hql+= "Where classId =: classId";
+				
+				TypedQuery<Schedule> query = session.createQuery(hql);
+				query.setParameter("classId", classId);
+			Sc = query.getResultList();
+			} catch (HibernateException ex) {
+			System.err.println(ex);
+			}catch(NoResultException nores)
+			{
+				
+			}
+			finally {
+			session.close();
+			}
+	return Sc;
+}
 public static boolean addSubject(Subject sj) {
 Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -340,12 +397,12 @@ transaction.commit();
 } catch (HibernateException ex) {
 //Log the exception
 transaction.rollback();
-System.out.println("roll back done");
-System.err.println(ex);
+
+ex.printStackTrace();
 } finally {
 session.close();
 }
-System.out.println("done");
+
 return true; }
 public static boolean addSchedule(Schedule sc) {
 Session session = HibernateUtil.getSessionFactory().openSession();
@@ -386,12 +443,32 @@ System.out.println("done");
 return true; }
 
 
-
-
-
-public Classroom readImportC1(String path)
+public static void choiceMake(String choice,String path)
+{
+	Classroom cl;
+	System.out.println("Merry");
+	if(choice.compareTo("Danh sách lớp")==0)
+	{
+	File tempFile = new File(path);
+	System.out.println("Is exist? "+tempFile.exists());
+	System.out.println(path);
+		cl = readImportC1(path);
+		System.out.println("good"+path);
+		addClassroom(cl);
+	}
+else if(choice.compareTo("Thời khóa biểu")==0)
+	c4(path);
+else
 {
 	
+	c7(path);
+}	
+}
+
+
+public static Classroom readImportC1(String path)
+{
+		System.out.println("If you can");
 		//FileReader fr = new FileReader("C:\\Users\\DELL\\Desktop\\comment reading.txt");
 		BufferedReader br;
 		Classroom cl = null;
@@ -426,9 +503,18 @@ public Classroom readImportC1(String path)
 		}
 		catch(IOException e)
 		{
-
+			e.printStackTrace();
 			System.out.println("error read file");
 			return null;
+		}
+		catch(Exception ee)
+		{
+			ee.printStackTrace();
+			
+			
+			
+			
+			
 		}
 		
 		
@@ -476,7 +562,7 @@ public static Classroom readImportC3(String path)
 		    	
 		    	if(sc ==null)
 		    	 sc = new Schedule(list[3],Integer.valueOf(list[0]));*/
-		    	Schedule sc = new Schedule(list[3]);
+		    	Schedule sc = new Schedule(Integer.valueOf(list[0]),list[3]);
 		    	
 		    	sc.setSubjectId(sj);
 		    	sc.setClassroom(cl);
@@ -494,13 +580,13 @@ public static Classroom readImportC3(String path)
 		}
 		catch( FileNotFoundException ex )
 		{
-			System.out.println("File Not Found");
+			
 			return null;
 		}
 		catch(IOException e)
 		{
 
-			System.out.println("error read file");
+			
 			return null;
 		}
 		finally {
@@ -514,10 +600,10 @@ public static Classroom readImportC3(String path)
 	
 }
 ////////////////////////////////////danger
-public boolean c7(String path) {
+public static boolean c7(String path) {
 	BufferedReader br;
 	Classroom cl = null;
-	System.out.println("can we get here?");
+	
 	Session session = HibernateUtil.getSessionFactory().openSession();
 	
 	try 
@@ -525,11 +611,11 @@ public boolean c7(String path) {
 	 br = new BufferedReader(new FileReader(path));
 	  String line = "";
 	  line = br.readLine();
-	  System.out.println(line);
+	 
 	  if(line.indexOf('–')==-1)
 		 
 		  {
-		  System.out.println("Not good");
+		 
 		  br.close();
 		  return false;
 		  }
@@ -548,7 +634,7 @@ public boolean c7(String path) {
 	  line = br.readLine();
 	  List<String> result =new ArrayList<String>();
 	    while ((line = br.readLine()) != null) {
-	    	System.out.println("can we get here?");
+	    	
 	    	String []list = line.split(",");
 	    	for(int i = 0; i < list.length;i++)
 	    		result.add(list[i]);
@@ -568,7 +654,88 @@ public boolean c7(String path) {
 	    
 	    	sv.output();
 	    }
+	   
+	    session.close();
 	   addClassroom(cl);
+	   br.close();
+	}
+	catch( FileNotFoundException ex )
+	{
+		System.out.println("File Not Found");
+		return false;
+	}
+	catch(IOException e)
+	{
+
+		System.out.println("error read file");
+		return false;
+	}
+	catch(Exception ee)
+	{
+		ee.printStackTrace();
+	}
+	
+	
+	
+return false;	
+}
+public static boolean c72(String path) {
+	BufferedReader br;
+	Classroom cl = null;
+	
+	Session session = HibernateUtil.getSessionFactory().openSession();
+	
+	try 
+	{
+	 br = new BufferedReader(new FileReader(path));
+	  String line = "";
+	  line = br.readLine();
+	  System.out.println(line);
+	  if(line.indexOf('–')==-1)
+		 
+		  {
+		
+		  br.close();
+		  return false;
+		  }
+		  
+	  int pos = line.indexOf(',');
+	 
+	  if(pos != -1)
+		  line = line.substring(0,pos);
+	  cl = session.get(Classroom.class, line);
+	  if(cl==null)
+	  {
+		  cl = new Classroom();
+		  cl.setClassId(line);
+	  }
+	  // trừ dòng tiêu đề.
+	  line = br.readLine();
+	  List<String> result =new ArrayList<String>();
+	    while ((line = br.readLine()) != null) {
+	    	
+	    	String []list = line.split(",");
+	    	for(int i = 0; i < list.length;i++)
+	    		result.add(list[i]);
+	    	SV sv = session.get(SV.class,list[1]);
+	    	if(sv == null)
+	    	{
+	    		//System.out.println("Lỗi, không có Sinh viên với mssv"+list[1]+" trong danh sách lớp ");
+	    		//return false;
+	    		sv = new SV();
+	    		sv.setMssv(list[1]);
+	    		sv.setName(list[2]);
+	    	}
+	    	
+	    	Grade grade = new Grade(Integer.valueOf(list[0]),sv,cl,Float.valueOf(list[3]),Float.valueOf(list[4]),Float.valueOf(list[5]),Float.valueOf(list[6]));
+	    	sv.addGrade(grade);
+	    	cl.addSV(sv);
+	    
+	    	sv.output();
+	    }
+	   
+	    session.close();
+	   updateClassroomGrade(cl);
 	   br.close();
 	}
 	catch( FileNotFoundException ex )
@@ -701,6 +868,24 @@ public static boolean checkAccount(String username, String password)
 	return false;
 		
 }
+public static boolean addPK(pk Pk) {
+Session session = HibernateUtil.getSessionFactory().openSession();
+
+Transaction transaction = null;
+try {
+transaction = session.beginTransaction();
+session.saveOrUpdate(Pk);
+transaction.commit();
+} catch (HibernateException ex) {
+//Log the exception
+transaction.rollback();
+System.out.println("roll back done");
+System.err.println(ex);
+} finally {
+session.close();
+}
+System.out.println("done");
+return true; }
 
 public static void fakemain()
 {
@@ -779,7 +964,7 @@ public void c9()
 {
 	SV sv = getSVInfo("1842003");
 	Classroom cl = getClassInfo("18HCB–CTT001");
-	Grade gp = new Grade(1,sv,cl,5,6,7,8);
+	Grade gp = new Grade(1,sv,cl,5,4,7,8);
 	updateGrade(gp);
 	
 }
@@ -815,21 +1000,33 @@ public static void main(String args[])
 	
 	
 SVcheck temp = new SVcheck();
-
-
+/*temp.c4("input3.csv");
+temp.c4("input5.csv");
+List<Schedule> scList= temp.getScheduleInfoFromClass("17CTT6");
+for(Schedule sc:scList)
+	{sc.output();
+	System.out.println("------------");
+	
+	}*/
+pk solo = new pk("1712805","Ngoo","Phần mềm","Giữa kỳ",8,"");
+temp.addPK(solo);
 //temp.checkAccount("giaovu", "giaovu");
 //temp.c9();
 //Grade gp = temp.c10("1742005", "18HCB–CTT001");
 //gp.output();
-SV newSv1 = new SV("1712807","ginko","Mayonise", "",null);
-Classroom cl = new Classroom("17CTT9",null);
-newSv1.addClassroom(cl);
+//SV newSv1 = new SV("1712807","ginko","Mayonise", "",null);
+//Classroom cl = new Classroom("17CTT9",null);
+//newSv1.addClassroom(cl);
+//Classroom cl = temp.readImportC1("input1.csv");
+//temp.addClassroom(cl);
 //cl.addSV(newSv1);
-temp.addSV(newSv1);
+//temp.addSV(newSv1);
+//temp.c7("input7.csv");
 //Set<SV> listsv = new HashSet<SV>();
 //listsv.add(newSv);
 //listsv.add(newSv1);
 
+//temp.c4("input3.csv");
 //temp.c7("input7.csv");
 //temp.watchClassPoint("18HCB–CTT001");
 
@@ -839,7 +1036,7 @@ temp.addSV(newSv1);
 //list.add(cl3);
 //newSv1.setClasses(list);
 //temp.addSV(newSv1);
-//Classroom cl = temp.readImportC1("input1.csv");
+//Classroom cl = temp.readImportC1("C:\\Users\\Admin\\Desktop\\input1.csv");
 //temp.addClassroom(cl);
 //Classroom cl2 = temp.readImportC3("input3.csv");
 //temp.addClassroom(cl2);

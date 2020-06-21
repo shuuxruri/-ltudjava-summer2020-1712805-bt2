@@ -10,6 +10,7 @@ public class Schedule implements Serializable {
 	private Subject subjectId = new Subject();
 	private String room;
 	private int Id;
+	private int stt;
 	
 	public Schedule() {
 		// TODO Auto-generated constructor stub
@@ -44,8 +45,9 @@ public class Schedule implements Serializable {
 		classId = null;
 		room = Room;
 	}
-	public Schedule(Classroom ClassId,Subject SubjectId,String Room)
+	public Schedule(int Stt,Classroom ClassId,Subject SubjectId,String Room)
 	{
+		stt =Stt;
 		classId = ClassId;
 		subjectId = SubjectId;
 		room = Room;
@@ -69,18 +71,27 @@ public class Schedule implements Serializable {
 		Id = id;
 	}
 
-	public Schedule(Classroom ClassId,Subject SubjectId,String Room,int id)
+	public Schedule(Classroom ClassId,Subject SubjectId,String Room,int Stt)
 	{
 		classId = ClassId;
 		subjectId = SubjectId;
 		room = Room;
+		stt =Stt;
 		
 	}
-	public Schedule(String Room,int id)
+	public Schedule(int Stt,String Room)
 	{
-		Id = id;
+		stt = Stt;
 		room = Room;
 		
+	}
+
+	public int getStt() {
+		return stt;
+	}
+
+	public void setStt(int stt) {
+		this.stt = stt;
 	}
 
 }

@@ -19,7 +19,7 @@
    <column name="cmnd"/>
   </property>
   <property generated="never"  lazy="false" length="11"
-   name="Id" not-null="true" type="java.lang.Integer" unique="true"/>
+   name="Id" not-null="true" type="java.lang.Integer" />
         <set inverse = "false" name="classes" table="sv_classroom"  lazy="true" cascade="save-update" >
             <key>
                 <column name="studentId" />
