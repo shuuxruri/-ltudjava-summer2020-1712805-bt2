@@ -38,6 +38,25 @@ session.close();
 }
 return ds;
 }
+public static List<pk> getPKList() {
+List<pk> ds = new ArrayList<pk>();
+Session session = HibernateUtil.getSessionFactory()
+.openSession();
+try {
+String hql = " from pk ";
+TypedQuery<pk> query = session.createQuery(hql);
+//NativeQuery qry = OBDal.getInstance().getSession().createNativeQuery("select stragg(1) from dual");
+
+ds = query.getResultList();
+
+} catch (HibernateException ex) {
+//Log the exception
+System.err.println(ex);
+} finally {
+session.close();
+}
+return ds;
+}
 public static SV getSVInfo(String mssv)
 {
 	SV sv = null;
@@ -114,7 +133,7 @@ transaction.commit();
 } catch (HibernateException ex) {
 //Log the exception
 transaction.rollback();
-System.out.println("done");
+
 System.err.println(ex);
 } finally {
 session.close();
@@ -131,7 +150,7 @@ transaction.commit();
 } catch (HibernateException ex) {
 //Log the exception
 transaction.rollback();
-System.out.println("done");
+
 System.err.println(ex);
 } finally {
 session.close();
@@ -149,7 +168,7 @@ transaction.commit();
 } catch (HibernateException ex) {
 //Log the exception
 transaction.rollback();
-System.out.println("done");
+
 System.err.println(ex);
 } finally {
 session.close();
@@ -168,7 +187,7 @@ transaction.commit();
 } catch (HibernateException ex) {
 //Log the exception
 transaction.rollback();
-System.out.println("done");
+
 System.err.println(ex);
 } finally {
 session.close();
@@ -200,7 +219,7 @@ System.err.println(ex);
 } finally {
 session.close();
 }
-System.out.println("done");
+
 return true; }
 public static boolean updateClassroomGrade(Classroom classes) {
 Session session = null;
@@ -228,7 +247,7 @@ System.err.println(ex);
 } finally {
 session.close();
 }
-System.out.println("done");
+
 return true; }
 public static void c4(String path)
 {
@@ -415,12 +434,13 @@ transaction.commit();
 } catch (HibernateException ex) {
 //Log the exception
 transaction.rollback();
-System.out.println("roll back done");
+
 System.err.println(ex);
 } finally {
 session.close();
 }
-System.out.println("done");
+
+
 return true; }
 public static boolean addShedule(Schedule sc) {
 Session session = HibernateUtil.getSessionFactory().openSession();
@@ -434,12 +454,12 @@ transaction.commit();
 } catch (HibernateException ex) {
 //Log the exception
 transaction.rollback();
-System.out.println("rollback done");
+
 System.err.println(ex);
 } finally {
 session.close();
 }
-System.out.println("done");
+
 return true; }
 
 
@@ -811,7 +831,7 @@ public static boolean addAccount(Account acc) {
 	} catch (HibernateException ex) {
 	//Log the exception
 	transaction.rollback();
-	System.out.println("done");
+	
 	System.err.println(ex);
 	} finally {
 	session.close();
@@ -829,7 +849,7 @@ public static boolean changeAccountPassword(Account acc) {
 	} catch (HibernateException ex) {
 	//Log the exception
 	transaction.rollback();
-	System.out.println("done");
+	
 	System.err.println(ex);
 	}
 	catch(Exception e)
@@ -879,12 +899,12 @@ transaction.commit();
 } catch (HibernateException ex) {
 //Log the exception
 transaction.rollback();
-System.out.println("roll back done");
+
 System.err.println(ex);
 } finally {
 session.close();
 }
-System.out.println("done");
+
 return true; }
 
 public static void fakemain()
@@ -968,6 +988,7 @@ public void c9()
 	updateGrade(gp);
 	
 }
+
 public Grade c10(String mssv,String Cls)
 {
 	Grade Class = null;
@@ -994,22 +1015,46 @@ public Grade c10(String mssv,String Cls)
 			}
 	return Class;
 }
+public static Set<Grade> c10_2(String mssv)
+{
+	Set<Grade> gpList = null;
+	Session session = HibernateUtil.getSessionFactory()
+			.openSession();
+	SV sv = getSVInfo(mssv);
+	
+	
+			try {
+			gpList = sv.getGrades();
+			} catch (HibernateException ex) {
+			System.err.println(ex);
+			}catch(NoResultException nores)
+			{
+				
+			}
+			finally {
+			session.close();
+			}
+	return gpList;
+}
 public static void main(String args[])
 {
 	//System.out.println(2);
 	
 	
 SVcheck temp = new SVcheck();
-/*temp.c4("input3.csv");
-temp.c4("input5.csv");
-List<Schedule> scList= temp.getScheduleInfoFromClass("17CTT6");
-for(Schedule sc:scList)
-	{sc.output();
-	System.out.println("------------");
+//Classroom cl = temp.readImportC1("input1.csv");
+//temp.addClassroom(cl);
+temp.getPKList();
+//temp.c4("input3.csv");
+//temp.c4("input5.csv");
+//temp.c7("input7.csv");
+//temp.c9();
+//Grade t = temp.c10("1742005", "18HCB–CTT001");
+//t.output();
 	
-	}*/
-pk solo = new pk("1712805","Ngoo","Phần mềm","Giữa kỳ",8,"");
-temp.addPK(solo);
+	
+//pk solo = new pk("1712805","Ngoo","Phần mềm","Giữa kỳ",8,"");
+//temp.addPK(solo);
 //temp.checkAccount("giaovu", "giaovu");
 //temp.c9();
 //Grade gp = temp.c10("1742005", "18HCB–CTT001");
