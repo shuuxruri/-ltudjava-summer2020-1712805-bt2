@@ -3,14 +3,18 @@ package testDB;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.DefaultCellEditor;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,7 +34,7 @@ public class NewJFrame extends javax.swing.JFrame {
     /**
      * Creates new form NewJFrame
      */
-	SVcheck temp;
+	
 	private String user;
 	private String pwd;
 	public void getMainPage()
@@ -112,8 +116,10 @@ public class NewJFrame extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         addSVBtn = new javax.swing.JButton();
+        GradeFixBtn = new javax.swing.JButton();
         importList = new javax.swing.JButton();
         importpage = new javax.swing.JPanel();
         chooseImport = new javax.swing.JComboBox<>();
@@ -122,11 +128,12 @@ public class NewJFrame extends javax.swing.JFrame {
         filePath = new javax.swing.JFileChooser();
         searchGradepage = new javax.swing.JPanel();
         searchClassGrade = new javax.swing.JButton();
+        searchClass2 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         watchGrade = new javax.swing.JTable();
         classField3 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        comeback5 = new javax.swing.JButton();
+        comeback10 = new javax.swing.JButton();
         GradeWatch = new javax.swing.JButton();
         SVPKpage = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
@@ -159,15 +166,159 @@ public class NewJFrame extends javax.swing.JFrame {
         jScrollPane8 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         comeback9 = new javax.swing.JButton();
+        passnumber = new javax.swing.JLabel();
+        passOnSum = new javax.swing.JLabel();
+        failOnSum = new javax.swing.JLabel();
+        addGradepage = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        c10_class = new javax.swing.JTextField();
+        c10_mssv = new javax.swing.JTextField();
+        c10_gk = new javax.swing.JTextField();
+        c10_ck = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
+        addGradeBtn = new javax.swing.JButton();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        c10_bonus = new javax.swing.JTextField();
+        c10_total = new javax.swing.JTextField();
+        saveStatusBtn = new javax.swing.JButton();
+       
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabel30.setText("MSSV");
+
+        jLabel31.setText("Điểm GK");
+
+      
+        jLabel32.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel32.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel32.setText("Sửa điểm");
+
+        addGradeBtn.setText("Thêm");
+        addGradeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addGradeBtnActionPerformed(evt);
+            }
+
+			private void addGradeBtnActionPerformed(ActionEvent evt) {
+				// TODO Auto-generated method stub
+				try
+				{
+				float gk = Float.valueOf(c10_gk.getText());
+				float ck = Float.valueOf(c10_ck.getText());
+				float bonus = Float.valueOf(c10_bonus.getText());
+				float total = Float.valueOf(c10_total.getText());
+				SV sv = Model.getSVInfo(c10_mssv.getText());
+				Classroom cl = Model.getClassInfo(c10_class.getText());
+				Grade gp = Model.getGradeInfo(new svClassroomId(sv,cl));
+				gp.setMidterm(gk);
+				gp.setFinalTerm(ck);
+				gp.setOtherPoint(bonus);
+				gp.setTotal(total);
+				Model.addGrade(gp);
+				JOptionPane.showMessageDialog(null,"Sửa điểm thành công");
+				}catch(NullPointerException ex) {
+					JOptionPane.showMessageDialog(null, "Sinh viên không tồn tại hoặc sinh viên không học lớp trên");
+				}
+			}
+        });
+        comeback10.setText("Quay lại");
+        comeback10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comeback10ActionPerformed(evt);
+            }});
+        jLabel33.setText("Lớp");
+
+        jLabel34.setText("Điểm CK");
+
+        jLabel35.setText("Điểm cộng");
+
+        jLabel36.setText("Tổng");
+
         
-        
+
+        javax.swing.GroupLayout addGradepageLayout = new javax.swing.GroupLayout(addGradepage);
+        addGradepage.setLayout(addGradepageLayout);
+        addGradepageLayout.setHorizontalGroup(
+            addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(addGradepageLayout.createSequentialGroup()
+                .addGap(77, 77, 77)
+                .addGroup(addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel30)
+                    .addComponent(jLabel31)
+                    .addComponent(jLabel33)
+                    .addComponent(jLabel34)
+                    .addComponent(jLabel35)
+                    .addComponent(jLabel36)
+                .addComponent(comeback10))
+                .addGroup(addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addGradepageLayout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addGroup(addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(c10_class, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(c10_mssv)
+                            .addComponent(c10_gk)
+                            .addComponent(c10_ck)
+                            .addComponent(c10_bonus)
+                            .addComponent(c10_total)))
+                    .addGroup(addGradepageLayout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addGradeBtn)
+                            .addComponent(jLabel32))))
+                .addContainerGap(94, Short.MAX_VALUE))
+        );
+        addGradepageLayout.setVerticalGroup(
+        		 addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                 .addGroup(addGradepageLayout.createSequentialGroup()
+                     .addGroup(addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                         .addGroup(addGradepageLayout.createSequentialGroup()
+                             .addContainerGap()
+                             .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                         .addComponent(comeback10))
+                     .addGap(2, 2, 2)
+                     .addGroup(addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                         .addComponent(jLabel33)
+                    .addComponent(jLabel33)
+                    .addComponent(c10_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(c10_mssv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel30))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(c10_gk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel31))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(c10_ck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel34))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel35)
+                    .addComponent(c10_bonus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(addGradepageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel36)
+                    .addComponent(c10_total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(addGradeBtn)
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        GradeFixBtn.setText("Sửa điểm");
+        GradeFixBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gradeFixActionPerformed(evt);
+            }
+        });
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
                 },
                 new String [] {
-                    "STT", "MSSV", "Họ và tên", "Môn học", "Cột điểm", "Điểm mong muốn", "Lý do", "Trạng thái"
+                    "STT", "MSSV", "Họ và tên", "Điểm GK", "Điểm CK", "Điểm cộng", "Điểm khác", "Kết quả"
                 }
             ) {
                 Class[] types = new Class [] {
@@ -179,34 +330,69 @@ public class NewJFrame extends javax.swing.JFrame {
                 }
             });
             jScrollPane8.setViewportView(jTable4);
-
+            searchClass2.setText("Tìm kiếm");
+            searchClass2.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    searchClass2ActionPerformed(evt);
+                }
+            });
             comeback9.setText("Quay lại");
             comeback9.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     comeback9ActionPerformed(evt);
                 }
             });
+            passnumber.setText("Số người đậu:");
 
+            passOnSum.setText("Phần trăm đậu trên tổng: ");
+
+            failOnSum.setText("Phần trăm rớt trên tổng: ");
             javax.swing.GroupLayout staticsticpageLayout = new javax.swing.GroupLayout(staticsticpage);
             staticsticpage.setLayout(staticsticpageLayout);
             staticsticpageLayout.setHorizontalGroup(
-                staticsticpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(staticsticpageLayout.createSequentialGroup()
-                    .addGap(21, 21, 21)
-                    .addGroup(staticsticpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    staticsticpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(staticsticpageLayout.createSequentialGroup()
                         .addComponent(comeback9)
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            );
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(staticsticpageLayout.createSequentialGroup()
+                        .addGroup(staticsticpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(staticsticpageLayout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(staticsticpageLayout.createSequentialGroup()
+                                .addGap(64, 64, 64)
+                                .addComponent(jLabel17)
+                                .addGap(52, 52, 52)
+                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25)
+                                .addComponent(searchClass2))
+                        .addGroup(staticsticpageLayout.createSequentialGroup()
+                                .addGap(55, 55, 55)
+                                .addGroup(staticsticpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(passOnSum)
+                                    .addComponent(passnumber)
+                                    .addComponent(failOnSum))))
+                        .addContainerGap(24, Short.MAX_VALUE))
+                );
             staticsticpageLayout.setVerticalGroup(
-                staticsticpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, staticsticpageLayout.createSequentialGroup()
-                    .addGap(23, 23, 23)
-                    .addComponent(comeback9)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            );
+                    staticsticpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, staticsticpageLayout.createSequentialGroup()
+                        .addComponent(comeback9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(staticsticpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17)
+                            .addComponent(searchClass2))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(passnumber)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(passOnSum)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(failOnSum)
+                        .addGap(21, 21, 21))
+                );
         searchSVGrade.setText("Tìm kiếm");
         searchSVGrade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,19 +470,41 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
         );
+        String status[]= {"Chưa xem","Đã cập nhật điểm","Không cập nhật điểm"};
+        combo = new JComboBox(status);
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
                 new Object [][] {
 
                 },
                 new String [] {
-                    "STT", "MSSV", "Họ tên", "Môn", "Cột ", "Điểm mong muốn", "Lý do", "Trạng thái"
-                }));
-            
+                    "STT", "MSSV", "Họ và tên", "Môn học", "Cột điểm", "Điểm mong muốn", "Lý do", "Trạng thái"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+        TableColumn tc = jTable3.getColumnModel().getColumn(7);
+        tc.setCellEditor(new DefaultCellEditor(combo));
+        saveStatusBtn.setText("Lưu");
+        saveStatusBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveStatusActionPerformed(evt);
+            }});
+        /*combo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusBtnActionPerformed(evt);
+            }});*/
             jScrollPane5.setViewportView(jTable3);
-           
+
             comeback7.setText("Quay lại");
             comeback7.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
+                	
                     comeback7ActionPerformed(evt);
                 }
             });
@@ -305,23 +513,23 @@ public class NewJFrame extends javax.swing.JFrame {
             PKpageLayout.setHorizontalGroup(
                 PKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(PKpageLayout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(PKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(PKpageLayout.createSequentialGroup()
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGap(23, 23, 23))
-                        .addGroup(PKpageLayout.createSequentialGroup()
-                            .addComponent(comeback7)
-                            .addContainerGap(309, Short.MAX_VALUE))))
+                    .addGap(21, 21, 21)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(32, Short.MAX_VALUE))
+                .addGroup(PKpageLayout.createSequentialGroup()
+                    .addComponent(comeback7)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(saveStatusBtn))
             );
             PKpageLayout.setVerticalGroup(
                 PKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(PKpageLayout.createSequentialGroup()
-                    .addGap(38, 38, 38)
-                    .addComponent(comeback7)
-                    .addGap(18, 18, 18)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(22, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PKpageLayout.createSequentialGroup()
+                    .addGroup(PKpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(comeback7)
+                        .addComponent(saveStatusBtn))
+                    .addGap(88, 88, 88)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(27, Short.MAX_VALUE))
             );
         
         
@@ -516,54 +724,57 @@ public class NewJFrame extends javax.swing.JFrame {
         );
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        chooseImport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Danh sách lớp", "Bảng điểm", "Thời khóa biểu" }));
-
-        confirmChoice.setText("Chọn");
-        confirmChoice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                confirmChoiceActionPerformed(evt);
-            }
-        });
         confirmFileChoice.setText("Xác nhận");
         confirmFileChoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmFileChoiceActionPerformed(evt);
             }
         });
+        confirmChoice.setText("Chọn file");
+        confirmChoice.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmChoiceActionPerformed(evt);
+            }
+        });
+
+        chooseImport.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Danh sách lớp", "Bảng điểm", "Thời khóa biểu" }));
+        
+
+        comeback4.setText("Trở lại");
+
         javax.swing.GroupLayout importpageLayout = new javax.swing.GroupLayout(importpage);
-        importpage.setLayout(importpageLayout);
-       
         importpage.setLayout(importpageLayout);
         importpageLayout.setHorizontalGroup(
             importpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(importpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(importpageLayout.createSequentialGroup()
+                    .addGap(1, 1, 1)
+                    .addComponent(confirmChoice)
+                    .addContainerGap(882, Short.MAX_VALUE))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, importpageLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(importpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(comeback4)
+                        .addComponent(chooseImport, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 822, Short.MAX_VALUE)))
             .addGroup(importpageLayout.createSequentialGroup()
-                .addGroup(importpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(importpageLayout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                       
-                        
-                        .addComponent(confirmFileChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(importpageLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(chooseImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(confirmChoice)))
-                	.addComponent(comeback4)
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addGap(199, 199, 199)
+                .addComponent(confirmFileChoice)
+                .addContainerGap(682, Short.MAX_VALUE))
         );
         importpageLayout.setVerticalGroup(
             importpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(importpageLayout.createSequentialGroup()
-            	.addComponent(comeback4)
-                .addGap(88, 88, 88)
-                .addGroup(importpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(chooseImport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(confirmChoice))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
-                .addComponent(confirmFileChoice, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
+                .addContainerGap()
+                .addComponent(comeback4)
+                .addGap(36, 36, 36)
+                .addComponent(chooseImport, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(confirmChoice)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addComponent(confirmFileChoice)
+                .addGap(49, 49, 49))
         );
-
        
        
         
@@ -661,7 +872,12 @@ public class NewJFrame extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-
+        jButton2.setText("Xem danh sách lớp");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         changePassword.setText("Đổi mật khẩu");
         changePassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -697,10 +913,10 @@ public class NewJFrame extends javax.swing.JFrame {
         mainpageLayout.setHorizontalGroup(
             mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainpageLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(logout))
+            		.addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(logout))
             .addGroup(mainpageLayout.createSequentialGroup()
                 .addGroup(mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(mainpageLayout.createSequentialGroup()
@@ -711,6 +927,7 @@ public class NewJFrame extends javax.swing.JFrame {
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(GradeWatch, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(addSV, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GradeFixBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(staticstic, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(changePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -722,12 +939,12 @@ public class NewJFrame extends javax.swing.JFrame {
         mainpageLayout.setVerticalGroup(
             mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainpageLayout.createSequentialGroup()
-                .addGroup(mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(logout)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                    .addGroup(mainpageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(logout)
+                        .addComponent(jLabel2))
+                    .addGap(23, 23, 23)
+                    .addComponent(jLabel1)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ScheduleWatch)
@@ -737,6 +954,8 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addComponent(importList)
             	.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addSV)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GradeFixBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(staticstic)
                 .addGap(5, 5, 5)
@@ -795,51 +1014,47 @@ public class NewJFrame extends javax.swing.JFrame {
         javax.swing.GroupLayout mainpage2Layout = new javax.swing.GroupLayout(mainpage2);
         mainpage2.setLayout(mainpage2Layout);
         mainpage2Layout.setHorizontalGroup(
-            mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainpage2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(logout1))
-            .addGroup(mainpage2Layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addGroup(mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(changePassword1, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(162, Short.MAX_VALUE))
-            .addGroup(mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainpage2Layout.createSequentialGroup()
+                		.addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(logout1))
                 .addGroup(mainpage2Layout.createSequentialGroup()
-                    .addGap(108, 108, 108)
-                    .addGroup(mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(mainpage2Layout.createSequentialGroup()
-                            .addGap(32, 32, 32)
-                            .addGroup(mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
-                                .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(127, Short.MAX_VALUE)))
-        );
+                    .addGap(141, 141, 141)
+                    .addGroup(mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(changePassword1, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(415, Short.MAX_VALUE))
+                .addGroup(mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainpage2Layout.createSequentialGroup()
+                        .addGap(108, 108, 108)
+                        .addGroup(mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(mainpage2Layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(167, Short.MAX_VALUE)))
+            );
         mainpage2Layout.setVerticalGroup(
-            mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainpage2Layout.createSequentialGroup()
-                .addGroup(mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logout1)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
-                .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(changePassword1)
-                .addGap(83, 83, 83))
-            .addGroup(mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(mainpage2Layout.createSequentialGroup()
-                    .addGap(41, 41, 41)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                    .addComponent(jButton8)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jButton9)
-                    .addGap(142, 142, 142)))
-        );
+                    .addGroup(mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(logout1)
+                        .addComponent(jLabel9))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
+                    .addComponent(jButton5)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(changePassword1)
+                    .addGap(104, 104, 104))
+                .addGroup(mainpage2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainpage2Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addComponent(jButton8)
+                        .addGap(171, 171, 171)))
+            );
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Mật khẩu cũ");
@@ -1188,6 +1403,7 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(mainpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
+            
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -1216,6 +1432,11 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(addGradepage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(importpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1225,6 +1446,12 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(SVPKpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(staticsticpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()))
+            
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(PKpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1273,6 +1500,11 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
+                        .addComponent(addGradepage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(importpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1287,6 +1519,11 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(PKpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addComponent(staticsticpage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(7, 7, 7)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(searchSVGradepage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         		);
@@ -1304,32 +1541,112 @@ public class NewJFrame extends javax.swing.JFrame {
         searchGradepage.setVisible(false);
         SVPKpage.setVisible(false);
         searchSVGradepage.setVisible(false);
+        staticsticpage.setVisible(false);
+        addGradepage.setVisible(false);
         pack();
         
     }// </editor-fold>                        
 
-    protected void comeback9ActionPerformed(ActionEvent evt) {
+    protected void saveStatusActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
+    	
+    	List<pk> pkList= Model.AcsPK();
+    	try {
+    		
+    	DefaultTableModel tbl = (DefaultTableModel) jTable3.getModel();
+    	
+    	for (int count = 0; count < tbl.getRowCount(); count++){
+    		System.out.println(tbl.getValueAt(count, 7).toString());
+    		  pkList.get(count).setStatus(tbl.getValueAt(count, 7).toString());
+    		  Model.addPK(pkList.get(count));
+    		}
+    	
+    	}catch(NullPointerException ex) {
+    		JOptionPane.showMessageDialog(null, "Lớp không tồn tại");
+    	}
+    	finally {
+    		mainpage.setVisible(false);
+        	PKpage.setVisible(true);
+    	}
+		
+	}
+	protected void comeback10ActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	addGradepage.setVisible(false);
+    	mainpage.setVisible(true);
+		
+	}
+	protected void gradeFixActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	mainpage.setVisible(false);
+    	addGradepage.setVisible(true);
+		
+	}
+	protected void searchClass2ActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+    	try {
+    		// TODO Auto-generated method stub
+    		//Classroom cl = Model.getClassInfo( jTextField5.getText());
+         	List<Grade> gplist = Model.AcsGrade(jTextField5.getText());
+         	//JTable table = new JTable(new DefaultTableModel(new Object[]{"Column1", "Column2"}));
+         	DefaultTableModel tbl = (DefaultTableModel) jTable4.getModel();
+         	tbl.setRowCount(0);
+         	String res="";
+         	int count =0;
+         	for(Grade gp:gplist)
+         	{	
+         		svClassroomId idKey = gp.getidKey(); 
+         		if(gp.getTotal()>=5)
+         			{
+         			res = "Đậu";
+         			count++;
+         			
+         			}
+         		else
+         			res = "Rớt";
+         		  tbl.addRow(new Object[]{gp.getId(), idKey.getMssv().getMssv(),
+         				  idKey.getMssv().getName(),gp.getMidterm(),gp.getFinalTerm()
+         				  ,gp.getOtherPoint(),gp.getTotal(),res});
+         		  
+
+         		
+         		
+         	} 
+         	double temp = (double)(count*100)/(double)gplist.size();
+         	passnumber.setText(passnumber.getText()+count);
+         	passOnSum.setText(passOnSum.getText()+new DecimalFormat("##.##").format(temp)+"%");
+         	failOnSum.setText(failOnSum.getText()+new DecimalFormat("##.##").format(100-temp)+"%");
+    		}catch(NullPointerException ex) {
+    			JOptionPane.showMessageDialog(null, "Lớp không tồn tại");
+    		}
+		
+	}
+	protected void comeback9ActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		jTextField5.setText("");
     	staticsticpage.setVisible(false);
     	getMainPage();
 	}
 	protected void comeback8ActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
+		subJectSearchFIeld.setText("");
     	searchSVGradepage.setVisible(false);
     	getMainPage();
 		
 	}
 	protected void searchSVGradeActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
-	Grade gp;
+	Grade gp= null;
+	
 	try {
-	gp = temp.c10(user,subJectSearchFIeld.getText());
+	//gp =Model.c10(user,subJectSearchFIeld.getText());
      	//JTable table = new JTable(new DefaultTableModel(new Object[]{"Column1", "Column2"}));
-     	DefaultTableModel tbl = (DefaultTableModel) watchGrade.getModel();
+     	DefaultTableModel tbl = (DefaultTableModel) watchGradeSV.getModel();
+     	tbl.setRowCount(0);
+     	svClassroomId idKey = new svClassroomId(Model.getSVInfo(user),Model.getClassInfo(subJectSearchFIeld.getText()));
+     		gp = Model.getGradeInfo(idKey);
      	
-     	
-     	
-     		svClassroomId idKey = gp.getidKey(); 
+     		
      		
      		  tbl.addRow(new Object[]{gp.getId(), idKey.getMssv().getMssv(),
      				  idKey.getMssv().getName(),gp.getMidterm(),gp.getFinalTerm()
@@ -1359,7 +1676,7 @@ public class NewJFrame extends javax.swing.JFrame {
     	String reasons = reason.getText();
     	float wantedPoint = Float.valueOf(wantedPointField.getText());
     	pk PK = new pk(MSSV,name,subject,column,wantedPoint,reasons);
-    	SVcheck.addPK(PK);
+    	Model.addPK(PK);
     	JOptionPane.showMessageDialog(null,"Gửi đơn phúc khảo thành công");
     	}catch(Exception e)
     	{
@@ -1381,12 +1698,14 @@ public class NewJFrame extends javax.swing.JFrame {
 		
 	}
 	protected void searchClassGradeActionPerformed(ActionEvent evt) {
+		try {
 		// TODO Auto-generated method stub
-		Classroom cl = temp.getClassInfo( classField3.getText());
-     	Set<Grade> gplist = cl.getGradeList();
+		/*Classroom cl = Model.getClassInfo( classField3.getText());
+     	Set<Grade> gplist = cl.getGradeList();*/
+			List<Grade> gplist = Model.AcsGrade(classField3.getText());
      	//JTable table = new JTable(new DefaultTableModel(new Object[]{"Column1", "Column2"}));
      	DefaultTableModel tbl = (DefaultTableModel) watchGrade.getModel();
-     	
+     	tbl.setRowCount(0);
      	int count = 0;
      	for(Grade gp:gplist)
      	{	
@@ -1398,10 +1717,14 @@ public class NewJFrame extends javax.swing.JFrame {
      		
      		
      	} 
+		}catch(NullPointerException ex) {
+			JOptionPane.showMessageDialog(null, "Lớp không tồn tại");
+		}
 		
 	}
 	protected void comeback5ActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
+		classField3.setText("");
     	searchGradepage.setVisible(false);
     	getMainPage();
 	}
@@ -1434,7 +1757,7 @@ public class NewJFrame extends javax.swing.JFrame {
     	}
     	//path = tempPath.toString();
     	//System.out.println(path);
-    	SVcheck.choiceMake(choice, path);
+    	Model.choiceMake(choice, path);
     		}
     	JOptionPane.showMessageDialog(null, "Import thành công");
     	}
@@ -1536,9 +1859,12 @@ public class NewJFrame extends javax.swing.JFrame {
     	System.out.println("st is: "+user);
     	System.out.println("st is: "+pwd);
 			
-	    	if(temp.checkAccount(user, pwd))
+	    	if(Model.checkAccount(user, pwd))
 	    	{ loginpage.setVisible(false);
+	    	jLabel2.setText("chào " +user);
+	    	jLabel9.setText("chào " +user);
 	    	getMainPage();
+	    
 	    	}
 	    	
 	    	else
@@ -1561,9 +1887,9 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void staticsticActionPerformed(java.awt.event.ActionEvent evt) {                                           
         // TODO add your handling code here:
-    	//mainpage.setVisible(false);
-    	//Schedulepage.setVisible(true);
-    	JOptionPane.showMessageDialog(null,"Chức năng đang bảo trì");
+    	mainpage.setVisible(false);
+    	staticsticpage.setVisible(true);
+    	//JOptionPane.showMessageDialog(null,"Chức năng đang bảo trì");
     }                                          
 
                             
@@ -1580,7 +1906,7 @@ public class NewJFrame extends javax.swing.JFrame {
     		{
     		if(newPass.compareTo(repeat)==0 && newPass!=null)
     			{
-    			temp.changeAccountPassword(new Account(user,newPass));
+    			Model.changeAccountPassword(new Account(user,newPass));
     			JOptionPane.showMessageDialog(null,"Đổi mật khẩu thành công");
     			oldPassword.setText("");
     			newPassword.setText(null);
@@ -1606,19 +1932,23 @@ public class NewJFrame extends javax.swing.JFrame {
     	mainpage.setVisible(false);
     	PKpage.setVisible(true);
     	List<pk> pkList= new ArrayList();
-    	pkList = temp.getPKList();
+    	try {
+    	pkList = Model.getPKList();
     	DefaultTableModel tbl = (DefaultTableModel) jTable3.getModel();
+    	tbl.setRowCount(0);
     	for(pk PK:pkList)
      	{	
      		
-     		
+     	
      		  tbl.addRow(new Object[]{PK.getId(), PK.getMssv(),
      				 PK.getName(),PK.getSubject(),PK.getColumn(),
-     				 PK.getWantedPoint(),PK.getReason()});
+     				 PK.getWantedPoint(),PK.getReason(),PK.getStatus()});
      		
      		
      	} 
-    	
+    	}catch(NullPointerException ex) {
+    		JOptionPane.showMessageDialog(null, "Lớp không tồn tại");
+    	}
     	
     }    
     private void changePasswordActionPerformed(java.awt.event.ActionEvent evt) {                                            
@@ -1644,16 +1974,17 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void searchClassScheduleActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         // TODO add your handling code here:
-    	Classroom cl = temp.getClassInfo( classField2.getText());
-     	Set<Schedule> sclist = cl.getScheduleList();
+    	/*Classroom cl = Model.getClassInfo( classField2.getText());
+     	Set<Schedule> sclist = cl.getScheduleList();*/
+    	List<Schedule> sclist = Model.AcsSchedule(classField2.getText());
      	//JTable table = new JTable(new DefaultTableModel(new Object[]{"Column1", "Column2"}));
      	DefaultTableModel tbl = (DefaultTableModel) watchSchedule.getModel();
-     	
+     	tbl.setRowCount(0);
      	
      	for(Schedule sc:sclist)
      	{	
-     		
-     		  tbl.addRow(new Object[]{sc.getId(), sc.getSubjectId().getsubjectId(), sc.getSubjectId().getName(), 
+     		Subject sj = sc.getIdKey().getSubjectId();
+     		  tbl.addRow(new Object[]{sc.getStt(), sj.getsubjectId(), sj.getName(), 
      				 sc.getRoom()});
      		
      	
@@ -1665,11 +1996,11 @@ public class NewJFrame extends javax.swing.JFrame {
     private void searchClassActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
     	
-     	Classroom cl = temp.getClassInfo( classField1.getText());
-     	Set<SV>dssv = cl.getDSSV();
+     	Classroom cl = Model.getClassInfo( classField1.getText());
+     	List<SV>dssv = cl.AcsId();
      	//JTable table = new JTable(new DefaultTableModel(new Object[]{"Column1", "Column2"}));
      	DefaultTableModel tbl = (DefaultTableModel) jTable2.getModel();
-     	
+     	tbl.setRowCount(0);
      	
      	for(SV sv:dssv)
      	{	
@@ -1695,7 +2026,7 @@ public class NewJFrame extends javax.swing.JFrame {
     	String name = jTextField2.getText();
     	String CMND = jTextField3.getText();
     	
-    	Classroom cl = temp.getClassInfo(jTextField4.getText());
+    	Classroom cl = Model.getClassInfo(jTextField4.getText());
     	if(cl ==null)
     		{
     			JOptionPane.showMessageDialog(null, "Lớp không tồn tại");
@@ -1705,7 +2036,7 @@ public class NewJFrame extends javax.swing.JFrame {
     	
     	SV sv = new SV(mssv,name,null,CMND);
     	sv.addClassroom(cl);
-    	temp.addSV(sv);
+    	Model.addSV(sv);
     	JOptionPane.showMessageDialog(null, "Thêm sinh viên thành công");
     	
     }                                        
@@ -1819,6 +2150,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JButton login;
     private javax.swing.JPanel loginpage;
     private javax.swing.JButton logout;
@@ -1830,6 +2162,7 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField repeatNewPassword;
     private javax.swing.JButton searchClass;
+    private javax.swing.JButton searchClass2;
     private javax.swing.JButton searchClassSchedule;
     private javax.swing.JButton searchGrade;
     private javax.swing.JPanel searchClasspage;
@@ -1837,11 +2170,13 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField username;
     private javax.swing.JTable watchSchedule;
     private javax.swing.JComboBox<String> chooseImport;
+    private javax.swing.JComboBox<String> combo;
     private javax.swing.JButton confirmChoice;
     private javax.swing.JButton confirmFileChoice;
     private javax.swing.JFileChooser filePath;
     private javax.swing.JButton importList;
     private javax.swing.JButton GradeWatch;
+    private javax.swing.JButton GradeFixBtn;
     private javax.swing.JPanel importpage;
     private javax.swing.JTextField classField3;
     
@@ -1878,8 +2213,28 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JTextField subJectSearchFIeld;
     private javax.swing.JTable watchGradeSV;
     private javax.swing.JButton comeback9;
+    private javax.swing.JButton comeback10;
+    private javax.swing.JButton saveStatusBtn;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JTable jTable4;
     private javax.swing.JPanel staticsticpage;
+    private javax.swing.JLabel passOnSum;
+    private javax.swing.JLabel passnumber;
+    private javax.swing.JLabel failOnSum;
+    private javax.swing.JButton addGradeBtn;
+    private javax.swing.JPanel addGradepage;
+    private javax.swing.JTextField c10_bonus;
+    private javax.swing.JTextField c10_ck;
+    private javax.swing.JTextField c10_class;
+    private javax.swing.JTextField c10_gk;
+    private javax.swing.JTextField c10_mssv;
+    private javax.swing.JTextField c10_total;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     // End of variables declaration                   
 }

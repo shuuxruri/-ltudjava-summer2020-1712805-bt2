@@ -5,8 +5,8 @@
  <session-factory >
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
   <property name="hibernate.connection.url">jdbc:mysql://localhost/doan</property>
-  <property name="hibernate.connection.username">mori7890</property>
-  <property name="hibernate.connection.password">shuxruri</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.connection.password"></property>
   <property name="hibernate.connection.autocommit">false</property>
   <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
   <mapping resource="testDB/SV.hbm.xml"/>

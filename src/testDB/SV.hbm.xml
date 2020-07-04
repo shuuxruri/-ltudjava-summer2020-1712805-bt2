@@ -5,7 +5,7 @@
 <hibernate-mapping>
     <class name="testDB.SV" table="SV">
   <id length="10" name="Mssv" type="java.lang.String">
-   <column length="11" name="Mssv" not-null="true" unique="true"/>
+   <column length="11" name="Mssv" not-null="true" />
    <generator class="assigned"/>
   </id>
   <property generated="never" lazy="false" name="Name" type="java.lang.String">
@@ -20,13 +20,12 @@
   </property>
   <property generated="never"  lazy="false" length="11"
    name="Id" not-null="true" type="java.lang.Integer" />
-        <set inverse = "false" name="classes" table="sv_classroom"  lazy="true" cascade="save-update" >
+        <set name="classes" table="sv_classroom"   cascade="save-update" >
             <key>
                 <column name="studentId" />
             </key>
             <many-to-many entity-name="testDB.Classroom">
-<column length="30"
-name="classId" not-null="true"/>
+<column length="30" name="classId" not-null="true"/>
 </many-to-many>
         </set>
        <set name="Grades" table="Grade" lazy="true" access="field" fetch="select" cascade="all">

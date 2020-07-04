@@ -13,7 +13,7 @@ import org.hibernate.*;
 import org.hibernate.query.NativeQuery;
 
 
-public class SVcheck {
+public  class  Model {
 	
 
 public static List<SV> layDanhSachSV() {
@@ -82,6 +82,27 @@ public static SV getSVInfo(String mssv)
 			
 			}
 	return sv;
+}
+public static Grade getGradeInfo(svClassroomId clId)
+{
+	Grade gp = null;
+	Session session = HibernateUtil.getSessionFactory()
+			.openSession();
+	
+			try {
+		gp = session.get(Grade.class, new svClassroomId(clId));
+			} catch (HibernateException ex) {
+			System.err.println(ex);
+			return null;
+			}catch(NoResultException nores)
+			{
+				
+			}finally {
+				
+			session.close();
+			
+			}
+	return gp;
 }
 public static Classroom getClassInfo(String ClassId)
 {
@@ -235,7 +256,7 @@ try {
 
 transaction = session.beginTransaction();
  
-session.merge(classes);
+session.saveOrUpdate(classes);
 
 transaction.commit();
 } catch (HibernateException ex) {
@@ -260,14 +281,15 @@ public static void c4(String path)
 	try {
 	
 	cl = readImportC3(path);
-	
-	addClassroom(cl);
+	if(cl !=null)
+	{
+		addClassroom(cl);
 	
 	String tempClassName = cl.getClassId();
 	
-	String hql= " select distinct subjectId ";
+	String hql= " select sc.idKey.subjectId ";
 	hql +="from Schedule sc";
-	hql += " where sc.classId=:classId";
+	hql += " where sc.idKey.classId=:classId";
 	TypedQuery<Subject> query = session.createQuery(hql);
 	query.setParameter("classId", cl);
 	
@@ -296,7 +318,9 @@ public static void c4(String path)
 		
 	
 		}
-	
+	}
+	else
+		System.out.println("Fightttttttttttt");
 	}
 	catch(Exception e)
 	{
@@ -387,12 +411,12 @@ public static List<Schedule> getScheduleInfoFromClass(String classId) {
 				hql+= " from Subject sj left join fetch sj.schedule";
 				hql+= " where dm.subjectId=:subject";*/
 				
-				String hql="select distinct Schedule  ";
-				hql+= "From Classroom ";
-				hql+= "Where classId =: classId";
+				String hql="select distinct sc  ";
+				hql+= "From Schedule sc ";
+				hql+= "Where sc.idKey.classId =: classId";
 				
 				TypedQuery<Schedule> query = session.createQuery(hql);
-				query.setParameter("classId", classId);
+				query.setParameter("classId", cl);
 			Sc = query.getResultList();
 			} catch (HibernateException ex) {
 			System.err.println(ex);
@@ -404,6 +428,11 @@ public static List<Schedule> getScheduleInfoFromClass(String classId) {
 			session.close();
 			}
 	return Sc;
+}
+public static Set<Grade> getGradeInfoFromClass(String classId) {
+	Classroom cl = getClassInfo(classId);	
+	Set<Grade> list = cl.getGradeList();
+	return list;
 }
 public static boolean addSubject(Subject sj) {
 Session session = HibernateUtil.getSessionFactory().openSession();
@@ -428,6 +457,15 @@ Session session = HibernateUtil.getSessionFactory().openSession();
 
 Transaction transaction = null;
 try {
+	subjectClassId temp = new subjectClassId(sc.getIdKey());
+	if(temp==null)
+		System.out.println("This is null");
+	else
+		{
+			System.out.println("This is not null");
+			System.out.println(temp.getClassId().getClassId());
+			System.out.println(temp.getSubjectId().getsubjectId());
+			}
 transaction = session.beginTransaction();
 session.saveOrUpdate(sc);
 transaction.commit();
@@ -439,9 +477,122 @@ System.err.println(ex);
 } finally {
 session.close();
 }
+return true; }
+public static boolean addGrade(Grade gp) {
+Session session = HibernateUtil.getSessionFactory().openSession();
 
+Transaction transaction = null;
+try {
+	svClassroomId temp = new svClassroomId(gp.getidKey());
+	if(temp==null)
+		System.out.println("This is null");
+	else
+		{
+			System.out.println("This is not null");
+			
+			}
+transaction = session.beginTransaction();
+session.saveOrUpdate(gp);
+transaction.commit();
+} catch (HibernateException ex) {
+//Log the exception
+transaction.rollback();
+
+System.err.println(ex);
+} finally {
+session.close();
+}
 
 return true; }
+public static List<Schedule> AcsSchedule(String classId)
+{
+	List<Schedule>scList = getScheduleInfoFromClass(classId);
+	
+	if(scList.size()==0)
+	{
+		System.out.println("Chưa có danh sách, hãy thêm học sinh hoặc import từ nguồn khác");
+		return null;
+	}
+	else
+	{
+		
+		for(int i = 0; i < scList.size(); i++)
+			for(int j = i+1; j < scList.size(); j++)
+				if(scList.get(i).getStt()>scList.get(j).getStt())
+					 Collections.swap( scList, i, j);
+	}
+	return scList;
+}	
+public static List<pk> AcsPK()
+{
+	List<pk>scList = getPKList();
+	
+	
+		
+		for(int i = 0; i < scList.size(); i++)
+			for(int j = i+1; j < scList.size(); j++)
+				if(scList.get(i).getId()>scList.get(j).getId())
+					 Collections.swap( scList, i, j);
+	
+	return scList;
+}	
+public static List<Schedule> DcsSchedule(String classId)
+{
+	List<Schedule>scList = getScheduleInfoFromClass(classId);
+	
+	if(scList.size()==0)
+	{
+		System.out.println("Chưa có danh sách, hãy thêm học sinh hoặc import từ nguồn khác");
+		return null;
+	}
+	else
+	{
+		
+		for(int i = 0; i < scList.size(); i++)
+			for(int j = i+1; j < scList.size(); j++)
+				if(scList.get(i).getStt()<scList.get(j).getStt())
+					 Collections.swap( scList, i, j);
+	}
+	return scList;
+}	
+public static List<Grade> AcsGrade(String classId)
+{
+	Set<Grade>temp = getGradeInfoFromClass(classId);
+	List<Grade>gpList = new ArrayList<Grade>(temp);
+	if(gpList.size()==0)
+	{
+		System.out.println("Chưa có danh sách, hãy thêm học sinh hoặc import từ nguồn khác");
+		return null;
+	}
+	else
+	{
+		
+		for(int i = 0; i < gpList.size(); i++)
+			for(int j = i+1; j < gpList.size(); j++)
+				if(gpList.get(i).getId()>gpList.get(j).getId())
+					 Collections.swap( gpList, i, j);
+	}
+	return gpList;
+}	
+public List<Grade> DscGrade(String classId)
+{
+	Set<Grade>temp = getGradeInfoFromClass(classId);
+	List<Grade>gpList = new ArrayList<Grade>(temp);
+	if(gpList.size()==0)
+	{
+		System.out.println("Chưa có danh sách, hãy thêm học sinh hoặc import từ nguồn khác");
+		return null;
+	}
+	else
+	{
+		
+		for(int i = 0; i < gpList.size(); i++)
+			for(int j = i+1; j < gpList.size(); j++)
+				if(gpList.get(i).getId()<gpList.get(j).getId())
+					 Collections.swap( gpList, i, j);
+	}
+	return gpList;
+}	
 public static boolean addShedule(Schedule sc) {
 Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -474,7 +625,7 @@ public static void choiceMake(String choice,String path)
 	System.out.println(path);
 		cl = readImportC1(path);
 		System.out.println("good"+path);
-		addClassroom(cl);
+		//addClassroom(cl);
 	}
 else if(choice.compareTo("Thời khóa biểu")==0)
 	c4(path);
@@ -488,7 +639,7 @@ else
 
 public static Classroom readImportC1(String path)
 {
-		System.out.println("If you can");
+		
 		//FileReader fr = new FileReader("C:\\Users\\DELL\\Desktop\\comment reading.txt");
 		BufferedReader br;
 		Classroom cl = null;
@@ -498,20 +649,45 @@ public static Classroom readImportC1(String path)
 		  String line = "";
 		  line = br.readLine();
 		  int pos = line.indexOf(',');
-		   cl = new Classroom();
+		 
 		  if(pos != -1)
 			  line = line.substring(0,pos);
-		  	cl.setClassId(line);
+		  cl = getClassInfo(line);
+		  if(cl ==null)
+				 {
+			  	cl = new Classroom();
+		  		cl.setClassId(line);
+				 }
 		  // trừ dòng tiêu đề.
 		  line = br.readLine();
 		  List<String> result =new ArrayList<String>();
+		  boolean flag = false;
 		    while ((line = br.readLine()) != null) {
-		    	
+		    	flag = false;
 		    	String []list = line.split(",");
 		    	for(int i = 0; i < list.length;i++)
 		    		result.add(list[i]);
-		    	SV student = new SV(Integer.valueOf(list[0]),list[1],list[2],list[3],list[4]);
-		    	cl.addSV(student);
+		    	//SV student;
+		    	SV student = getSVInfo(list[1]);
+		    	if(student==null)
+		    		student = new SV(Integer.valueOf(list[0]),list[1],list[2],list[3],list[4]);
+		    	else
+		    	{
+		    		student.setId(Integer.valueOf(list[0]));
+		    		student.setName(list[2]);
+		    		student.setGender(list[3]);
+		    		student.setCMND(list[4]);
+		    	}
+		    	//addSV(student);
+		    	for(Classroom cl2: student.classes)
+		    		if(cl.getClassId().compareTo(cl2.getClassId())==0)
+		    			flag = true;
+		    	if(flag == false)
+		    	{//cl.addSV(student);
+		    		
+		    	student.addClassroom(cl);
+		    	}
+		    	addSV(student);
 		    	student.output();
 		    }
 		    br.close();
@@ -527,15 +703,7 @@ public static Classroom readImportC1(String path)
 			System.out.println("error read file");
 			return null;
 		}
-		catch(Exception ee)
-		{
-			ee.printStackTrace();
-			
-			
-			
-			
-			
-		}
+		
 		
 		
 	return cl;	
@@ -548,6 +716,7 @@ public static Classroom readImportC3(String path)
 			.openSession();
 		//FileReader fr = new FileReader("C:\\Users\\DELL\\Desktop\\comment reading.txt");
 		BufferedReader br;
+		boolean flag = false;
 		Classroom cl = null;
 		try 
 		{
@@ -576,18 +745,44 @@ public static Classroom readImportC3(String path)
 		    	for(int i = 0; i < list.length;i++)
 		    		result.add(list[i]);
 		    	Subject sj = session.get(Subject.class, list[1]);
-		    	if(sj==null)
+		    	
+		    	Schedule sc2 = session.get(Schedule.class, new subjectClassId(sj,cl));
+		    	if(sc2== null)
+		    	{
+		    		flag = true;
+		    		if(sj==null)
+		    		{
 		    		sj = new Subject(list[1],list[2],null);
+		    		addSubject(sj);
+		    		
+		    		}
+		    	
 		    /*	Schedule sc = session.get(Schedule.class,Integer.valueOf(list[0]));
 		    	
 		    	if(sc ==null)
 		    	 sc = new Schedule(list[3],Integer.valueOf(list[0]));*/
 		    	Schedule sc = new Schedule(Integer.valueOf(list[0]),list[3]);
 		    	
-		    	sc.setSubjectId(sj);
-		    	sc.setClassroom(cl);
-		    	sj.addSchedule(sc);
+		    sc.setIdKey(new subjectClassId(sj,cl));
+		    	
+		    	
 		    	cl.addSchedule(sc);
+		    	
+		    	}
+		    	else
+		    	{
+		    		Schedule sc = session.get(Schedule.class, new subjectClassId(sj,cl));
+			    	
+				    sc.setRoom(list[3]);
+				    sc.setStt(Integer.valueOf(list[0]));
+				    	
+				    	
+				    	addSchedule(sc);
+				    	
+				    	
+		    	}
+		    	// addSchedule(sc);
+		    	
 		    	
 		    	//SV student = new SV(Integer.valueOf(list[0]),list[1],list[2],list[3],list[4]);
 		    	//cl.addSV(student);
@@ -595,7 +790,7 @@ public static Classroom readImportC3(String path)
 		    }
 		    //addClassroom(cl);
 		    br.close();
-		   
+		    
 		    
 		}
 		catch( FileNotFoundException ex )
@@ -614,16 +809,17 @@ public static Classroom readImportC3(String path)
 			session.close();
 		}
 		// addClassroom(cl);
-		
+	if(!flag)
+	    return null;	
 	return cl;	
 		
 	
 }
 ////////////////////////////////////danger
-public static boolean c7(String path) {
+public static String c7(String path) {
 	BufferedReader br;
 	Classroom cl = null;
-	
+	List<Grade>gpList = new ArrayList<Grade>();
 	Session session = HibernateUtil.getSessionFactory().openSession();
 	
 	try 
@@ -632,12 +828,12 @@ public static boolean c7(String path) {
 	  String line = "";
 	  line = br.readLine();
 	 
-	  if(line.indexOf('–')==-1)
+	  if(line.indexOf('-')==-1)
 		 
 		  {
 		 
 		  br.close();
-		  return false;
+		  return "Thất bại, không thể nhập điểm vào lớp cơ bản";
 		  }
 		  
 	  int pos = line.indexOf(',');
@@ -666,29 +862,34 @@ public static boolean c7(String path) {
 	    		sv = new SV();
 	    		sv.setMssv(list[1]);
 	    		sv.setName(list[2]);
+	    		return "Lỗi, không có Sinh viên với mss"+list[1]+" trong danh sách lớp ";
 	    	}
 	    	
 	    	Grade grade = new Grade(Integer.valueOf(list[0]),sv,cl,Float.valueOf(list[3]),Float.valueOf(list[4]),Float.valueOf(list[5]),Float.valueOf(list[6]));
-	    	sv.addGrade(grade);
-	    	cl.addSV(sv);
-	    
+	    	
+	    	grade.setidKey(new svClassroomId(sv,cl));
+	    	gpList.add(grade);
+	    	
 	    	sv.output();
 	    }
-	   
+	    
+		
 	    session.close();
-	   addClassroom(cl);
+	 
+	   for(Grade gp:gpList)
+		   addGrade(gp);
 	   br.close();
 	}
 	catch( FileNotFoundException ex )
 	{
 		System.out.println("File Not Found");
-		return false;
+		return "File Not Found";
 	}
 	catch(IOException e)
 	{
 
 		System.out.println("error read file");
-		return false;
+		return "error read file";
 	}
 	catch(Exception ee)
 	{
@@ -697,7 +898,7 @@ public static boolean c7(String path) {
 	
 	
 	
-return false;	
+return "Thành công";	
 }
 public static boolean c72(String path) {
 	BufferedReader br;
@@ -888,6 +1089,7 @@ public static boolean checkAccount(String username, String password)
 	return false;
 		
 }
+
 public static boolean addPK(pk Pk) {
 Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -907,79 +1109,7 @@ session.close();
 
 return true; }
 
-public static void fakemain()
-{
-	//temp.layDanhSachSV();
-	/*SV newSv = new SV("152","Hijikata",-8,"shinsegumi","Mayonise addict", "",null);
-	SV newSv1 = new SV("153","Gintoki",-8,"yorozura","Mayonise addict", "",null);
-	SV newSv2 = new SV("154","kagura",-8,"yorozura","Mayonise addict", "",null);
-	SV newSv3 = new SV("155","shinpachi",-8,"yorozura","Mayonise addict", "",null);
-	SV newSv4 = new SV("156","otae",-8,"cabaret","Mayonise addict", "",null);
-	Set<SV> listsv = new HashSet<SV>();
-	//listsv.add(newSv);
-	listsv.add(newSv1);
-	listsv.add(newSv2);
-	listsv.add(newSv3);
-	listsv.add(newSv4);
-	Classroom cl4 = new Classroom("17_33",listsv);
-	Classroom cl = new Classroom("17_32",null);
-	Classroom cl2 = new Classroom("17_31",null);
-	Classroom cl3 = new Classroom("17CTT6",null);
-	Set<Classroom>list = new HashSet<Classroom>();
-	list.add(cl);
-	list.add(cl2);
-	list.add(cl3);
-	newSv.setClasses(list);
-	//temp.addSV(newSv);
-	temp.addClassroom(cl4);
-	//temp.addClassroom(cl4);
-	//temp.deleteSV("152");
-	//temp.addClassroom(cl);
-	//SV sv = SVcheck.getSVInfo("145");
-	//sv.output();*/
-	//temp.getSubjectInfo("CT001").subjectOutput();
-	/*List<Schedule >ls = temp.getScheduleInfo();
 
-	ls2.addAll(ls);
-	*/
-	/*Set<Schedule>ls2 = new HashSet<Schedule>();
-	Classroom cl3 = new Classroom("17_38",null);
-	Subject sj = new Subject("JAC","Japanese anime Capital",null);
-
-	//temp.addSubject(sj);
-	System.out.println("dooooooooooooooooooooooooooo");
-
-	Schedule s = new Schedule("306");
-	s.setSubjectId(sj);
-	s.setClassroom(cl3);
-	ls2.add(s);
-	temp.addShedule(s);
-	//sj.addSchedule(s);
-		
-		//temp.addSubject(sj);
-		
-	Classroom cl3 = new Classroom("17_1111",null);
-//Classroom cl4 = new Classroom("17_411",null);
-Subject sj = new Subject("JAG","Japanese anime Girl",null);
-Subject sj2 = new Subject("JAG2","Japanese anime Girl 2",null);
-//temp.addSubject(sj);
-System.out.println("dooooooooooooooooooooooooooo");
-
-Schedule s = new Schedule("306");
-s.setSubjectId(sj);
-s.setClassroom(cl3);
-Schedule s2 = new Schedule("307");
-s.setSubjectId(sj);
-s.setClassroom(cl3);
-s2.setClassId(cl3);
-s2.setSubjectId(sj2);
-//ls2.add(s);
-//temp.addShedule(s);
-//temp.addShedule(s2);
-cl3.addSchedule(s);
-cl3.addSchedule(s2);
-	*/
-}
 public void c9()
 {
 	SV sv = getSVInfo("1842003");
@@ -988,22 +1118,27 @@ public void c9()
 	updateGrade(gp);
 	
 }
+public List<Schedule> farm(String cl)
+{
+	return null;
+}
 
-public Grade c10(String mssv,String Cls)
+public static List<Grade> c10(String Cls)
 {
 	Grade Class = null;
 	Session session = HibernateUtil.getSessionFactory()
 			.openSession();
-	SV sv = getSVInfo(mssv);
+	
 	Classroom cl = getClassInfo(Cls);
-	svClassroomId key = new svClassroomId(sv,cl);
+	
+	List<Grade> gpList = null;
 			try {
 			String hql= "";
 			hql +="from Grade grade ";
-			hql += " where grade.idKey=:name";
+			hql += " where grade.idKey.classId=:name";
 			TypedQuery<Grade> query = session.createQuery(hql);
-			query.setParameter("name", key);
-			Class = query.getSingleResult();
+			query.setParameter("name", cl);
+			gpList = query.getResultList();
 			} catch (HibernateException ex) {
 			System.err.println(ex);
 			}catch(NoResultException nores)
@@ -1013,8 +1148,9 @@ public Grade c10(String mssv,String Cls)
 			finally {
 			session.close();
 			}
-	return Class;
+	return gpList;
 }
+
 public static Set<Grade> c10_2(String mssv)
 {
 	Set<Grade> gpList = null;
@@ -1041,13 +1177,23 @@ public static void main(String args[])
 	//System.out.println(2);
 	
 	
-SVcheck temp = new SVcheck();
+Model temp = new Model();
+temp.readImportC1("C:\\Users\\Admin\\Desktop\\input1.csv");
+		
 //Classroom cl = temp.readImportC1("input1.csv");
+//cl.output();
 //temp.addClassroom(cl);
-temp.getPKList();
+//cl = temp.readImportC1("input2.csv");
+//cl.output();
+
+/*List<Grade> gpList = Model.c10("17CTT6–CTT001");
+for(Grade gp : gpList)
+	gp.output();
+System.out.println(gpList.size());*/
+//temp.readImportC3("input3.csv");
 //temp.c4("input3.csv");
 //temp.c4("input5.csv");
-//temp.c7("input7.csv");
+
 //temp.c9();
 //Grade t = temp.c10("1742005", "18HCB–CTT001");
 //t.output();
@@ -1055,40 +1201,6 @@ temp.getPKList();
 	
 //pk solo = new pk("1712805","Ngoo","Phần mềm","Giữa kỳ",8,"");
 //temp.addPK(solo);
-//temp.checkAccount("giaovu", "giaovu");
-//temp.c9();
-//Grade gp = temp.c10("1742005", "18HCB–CTT001");
-//gp.output();
-//SV newSv1 = new SV("1712807","ginko","Mayonise", "",null);
-//Classroom cl = new Classroom("17CTT9",null);
-//newSv1.addClassroom(cl);
-//Classroom cl = temp.readImportC1("input1.csv");
-//temp.addClassroom(cl);
-//cl.addSV(newSv1);
-//temp.addSV(newSv1);
-//temp.c7("input7.csv");
-//Set<SV> listsv = new HashSet<SV>();
-//listsv.add(newSv);
-//listsv.add(newSv1);
 
-//temp.c4("input3.csv");
-//temp.c7("input7.csv");
-//temp.watchClassPoint("18HCB–CTT001");
-
-//Classroom cl3 = new Classroom("17CTT6C",null);
-//Set<Classroom>list = new HashSet<Classroom>();
-
-//list.add(cl3);
-//newSv1.setClasses(list);
-//temp.addSV(newSv1);
-//Classroom cl = temp.readImportC1("C:\\Users\\Admin\\Desktop\\input1.csv");
-//temp.addClassroom(cl);
-//Classroom cl2 = temp.readImportC3("input3.csv");
-//temp.addClassroom(cl2);
-//temp.addClassroom(cl2);
-//temp.c4("input3.csv");
-
-	
-//temp.addSubject(sj);
 }
 }

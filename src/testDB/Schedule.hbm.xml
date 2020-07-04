@@ -4,23 +4,16 @@
 <!-- Generated Jun 17, 2020 1:21:44 PM by Hibernate Tools 3.5.0.Final -->
 <hibernate-mapping default-lazy="false">
  <class name="testDB.Schedule" table="schedule">
-  <id name="Id" type="java.lang.Integer">
-   <column name="id"/>
-   <generator class="increment"/>
-  </id>
+   <composite-id name="idKey" class="testDB.subjectClassId">
+        <key-many-to-one name="classId" class = "testDB.Classroom"  column ="classId" />
+        <key-many-to-one name="subjectId" class="testDB.Subject" column ="subjectId" />
+    </composite-id>
   <property generated="never" lazy="false" name="room" type="java.lang.String">
    <column name="room"/>
   </property>
   <property generated="never" lazy="false" name="stt" type="java.lang.Integer">
    <column name="stt"/>
   </property>
-  <many-to-one cascade="save-update" class="testDB.Subject" fetch="join"
-   lazy="false" name="subjectId" not-null="true" unique="true">
-   <column name="subjectId" not-null="true"/>
-  </many-to-one>
-  <many-to-one cascade="save-update" class="testDB.Classroom"
-   lazy="false" name="classId" not-null="true">
-   <column name="classId" not-null="true"/>
-  </many-to-one>
+  
  </class>
 </hibernate-mapping>

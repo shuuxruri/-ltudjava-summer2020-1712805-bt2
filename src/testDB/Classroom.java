@@ -13,7 +13,7 @@ public class Classroom implements Serializable{
 public   Set <SV>DSSV= new HashSet<SV>(0); 
 private static final char  DEFAULT_QUOTE = '\"';
 private static final char DEFAULT_SEPERATOR = ',';
-Set<Schedule>ScheduleList = new HashSet<Schedule>(0);
+private Set<Schedule>ScheduleList = new HashSet<Schedule>(0);
 private Set<Grade>GradeList = new HashSet<Grade>(0);
 
 public Classroom()
@@ -254,74 +254,45 @@ public static SV advancedConvert(String str)
 	return  student;
 }
 
-/*public static void AcsId()
+public List<SV> AcsId()
 {
-	if(DSSV.size()==0)
+	
+	List<SV>DSSV2 = new ArrayList<SV>(DSSV);
+	if(DSSV2.size()==0)
 	{
 		System.out.println("Chưa có danh sách, hãy thêm học sinh hoặc import từ nguồn khác");
-		return;
+		return null;
 	}
 	else
 	{
+		
 		for(int i = 0; i < DSSV.size(); i++)
 			for(int j = i+1; j < DSSV.size(); j++)
-				if(DSSV.get(i).getMssv().compareTo(DSSV.get(j).getMssv())>0)
-					 Collections.swap( DSSV, i, j);
+				if(DSSV2.get(i).getId()>DSSV2.get(j).getId())
+					 Collections.swap( DSSV2, i, j);
 	}
-	for(SV student:DSSV)
-		student.output();
-}
-public static void DcsId()
+	return DSSV2;
+}	
+public List<SV> DscId()
 {
-	if(DSSV.size()==0)
+	
+	List<SV>DSSV2 = new ArrayList<SV>(DSSV);
+	if(DSSV2.size()==0)
 	{
 		System.out.println("Chưa có danh sách, hãy thêm học sinh hoặc import từ nguồn khác");
-		return;
+		return null;
 	}
 	else
 	{
+		
 		for(int i = 0; i < DSSV.size(); i++)
 			for(int j = i+1; j < DSSV.size(); j++)
-				if(DSSV.get(i).getMssv().compareTo(DSSV.get(j).getMssv())<0)
-					 Collections.swap( DSSV, i, j);
+				if(DSSV2.get(i).getId()<DSSV2.get(j).getId())
+					 Collections.swap( DSSV2, i, j);
 	}
-	for(SV student:DSSV)
-		student.output();
-}
-public static void AcsScore()
-{
-	if(DSSV.size()==0)
-	{
-		System.out.println("Chưa có danh sách, hãy thêm học sinh hoặc import từ nguồn khác");
-		return;
-	}
-	else
-	{
-		for(int i = 0; i < DSSV.size(); i++)
-			for(int j = i+1; j < DSSV.size(); j++)
-				if(DSSV.get(i).getScore()>DSSV.get(j).getScore())
-					 Collections.swap( DSSV, i, j);
-	}
-	for(SV student:DSSV)
-		student.output();
-}
-public static void DcsScore()
-{
-	if(DSSV.size()==0)
-	{
-		System.out.println("Chưa có danh sách, hãy thêm học sinh hoặc import từ nguồn khác");
-		return;
-	}
-	else
-	{
-		for(int i = 0; i < DSSV.size(); i++)
-			for(int j = i+1; j < DSSV.size(); j++)
-				if(DSSV.get(i).getScore()<DSSV.get(j).getScore())
-					 Collections.swap( DSSV, i, j);
-	}
-	for(SV student:DSSV)
-		student.output();
-}*/
+	return DSSV2;
+}	
+
 public  void writeTextFile(String path)
 {
 	String regex = ".*,.*";

@@ -6,31 +6,17 @@ import java.util.*;
 public class Schedule implements Serializable {
 
 	//Set<Classroom> classList = new HashSet<Classroom>();
-	private Classroom classId = new Classroom();
-	private Subject subjectId = new Subject();
+	private subjectClassId idKey;
+	
 	private String room;
-	private int Id;
+	
 	private int stt;
 	
 	public Schedule() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Subject getSubjectId() {
-		return subjectId;
-	}
-
-	public void setSubjectId(Subject subjectId) {
-		this.subjectId = subjectId;
-	}
-
-	public Classroom getClassId() {
-		return classId;
-	}
-
-	public void setClassId(Classroom classId) {
-		this.classId = classId;
-	}
+	
 
 	public String getRoom() {
 		return room;
@@ -39,42 +25,26 @@ public class Schedule implements Serializable {
 	public void setRoom(String room) {
 		this.room = room;
 	}
-	public Schedule(String Room)
-	{
-		subjectId = null;
-		classId = null;
-		room = Room;
-	}
-	public Schedule(int Stt,Classroom ClassId,Subject SubjectId,String Room)
+	
+	public Schedule(int Stt,subjectClassId key,String Room)
 	{
 		stt =Stt;
-		classId = ClassId;
-		subjectId = SubjectId;
+		idKey = key;
 		room = Room;
 	}
-	public void setClassroom(Classroom cl) {
-		classId = cl;
-	}
+	
 	
 	void output() {
 		//System.out.println("Lớp: "+classId);
-		classId.output();
-		subjectId.subjectOutput();
+		
 		System.out.println("Phòng: "+room);
 	}
 
-	public int getId() {
-		return Id;
-	}
+	
 
-	public void setId(int id) {
-		Id = id;
-	}
-
-	public Schedule(Classroom ClassId,Subject SubjectId,String Room,int Stt)
+	public Schedule(subjectClassId key,String Room,int Stt)
 	{
-		classId = ClassId;
-		subjectId = SubjectId;
+		idKey = key;
 		room = Room;
 		stt =Stt;
 		
@@ -92,6 +62,18 @@ public class Schedule implements Serializable {
 
 	public void setStt(int stt) {
 		this.stt = stt;
+	}
+
+
+
+	public subjectClassId getIdKey() {
+		return idKey;
+	}
+
+
+
+	public void setIdKey(subjectClassId idKey) {
+		this.idKey = idKey;
 	}
 
 }

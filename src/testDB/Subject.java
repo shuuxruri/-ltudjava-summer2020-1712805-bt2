@@ -50,16 +50,7 @@ public class Subject implements Serializable{
 	{
 		schedule = list;
 	}
-	public void addSchedule(Set<Schedule>list) {
 	
-		for(Schedule ls:list)
-			{
-			ls.setSubjectId(this);
-			schedule.add(ls);
-			
-			}
-		
-	}
 	public void addSchedule(Schedule sc) {
 		if(schedule ==null)
 			schedule = new HashSet<Schedule>();
@@ -71,7 +62,7 @@ public class Subject implements Serializable{
 	System.out.println("Tên môn học: "+Name);	
 	for(Schedule temp: schedule)
 		{
-		Classroom x = temp.getClassId();
+		Classroom x = temp.getIdKey().getClassId();
 		System.out.println("Tên lớp: "+x.getClassId());
 		///System.out.println("Phòng: "+temp.getRoom());
 		}

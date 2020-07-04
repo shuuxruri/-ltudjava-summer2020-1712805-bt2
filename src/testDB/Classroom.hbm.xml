@@ -12,7 +12,7 @@
    <key>
     <column length="30" name="classId" not-null="true"/>
    </key>
-   <many-to-many entity-name="testDB.SV" unique="false">
+   <many-to-many entity-name="testDB.SV" >
     <column length="10" name="studentId" not-null="true"/>
    </many-to-many>
   </set>
